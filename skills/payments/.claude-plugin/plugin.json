@@ -1,5 +1,0 @@
-{
-  "name": "tekk-payments",
-  "description": "The Payments loop's skill library: one methodology per link in the money chain (webhooks & fulfilment, entitlements, billing config), each an Agent Skill with its own bundled references.",
-  "version": "1.0.0"
-}

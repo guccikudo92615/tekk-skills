@@ -1,5 +1,0 @@
-{
-  "name": "tekk-backend",
-  "description": "The backend loop's skill library: one methodology per lens (api-correctness, idempotency-and-jobs, query-and-index, schema-and-migrations), each an Agent Skill with its own bundled references.",
-  "version": "1.0.0"
-}

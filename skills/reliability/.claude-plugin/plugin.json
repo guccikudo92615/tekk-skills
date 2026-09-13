@@ -1,5 +1,0 @@
-{
-  "name": "tekk-reliability",
-  "description": "The reliability loop's skill library: one methodology per lens (dependency-boundary, retry-safety, resource-limits, failure-handling), each an Agent Skill the run can open mid-pass.",
-  "version": "1.0.0"
-}
