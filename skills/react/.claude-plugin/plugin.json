@@ -1,0 +1,5 @@
+{
+  "name": "tekk-react",
+  "description": "The React loop's skill library: one methodology per React failure family (state & effects, render performance, markup safety), each an Agent Skill with its own bundled references.",
+  "version": "1.0.0"
+}

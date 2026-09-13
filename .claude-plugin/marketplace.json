@@ -1,0 +1,84 @@
+{
+  "name": "tekk",
+  "owner": {
+    "name": "Tekk",
+    "url": "https://tekk.coach"
+  },
+  "metadata": {
+    "description": "The review skills behind Tekk's autonomous loops — one plugin per loop, each a shelf of methods."
+  },
+  "plugins": [
+    {
+      "name": "tekk-security",
+      "source": "./skills/security",
+      "description": "The Security loop's skill library: one methodology per attack surface (auth & access, tenant isolation, money & webhooks, injection & input, secrets & crypto), each an Agent Skill with its own bundled references.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-reliability",
+      "source": "./skills/reliability",
+      "description": "The reliability loop's skill library: one methodology per lens (dependency-boundary, retry-safety, resource-limits, failure-handling), each an Agent Skill the run can open mid-pass.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-testing",
+      "source": "./skills/testing",
+      "description": "The testing loop's skill library: one methodology per lens (coverage, flakiness, suite-speed), each an Agent Skill the run can open mid-pass.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-performance",
+      "source": "./skills/performance",
+      "description": "The performance loop's skill library: one methodology per lens (query-latency, hot-path-blocking, infra-spend, algorithmic-cost), each an Agent Skill the run can open mid-pass.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-react",
+      "source": "./skills/react",
+      "description": "The React loop's skill library: one methodology per React failure family (state & effects, render performance, markup safety), each an Agent Skill with its own bundled references.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-code-quality",
+      "source": "./skills/code-quality",
+      "description": "The code-quality loop's skill library: one methodology per lens (architecture, propagation, deslop), each an Agent Skill with its own bundled references.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-ai-engineering",
+      "source": "./skills/ai-engineering",
+      "description": "The AI-engineering loop's skill library: one methodology per lens (context engineering, harness, evals, retrieval), each an Agent Skill with its own bundled references.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-backend",
+      "source": "./skills/backend",
+      "description": "The backend loop's skill library: one methodology per lens (api-correctness, idempotency-and-jobs, query-and-index, schema-and-migrations), each an Agent Skill with its own bundled references.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-payments",
+      "source": "./skills/payments",
+      "description": "The Payments loop's skill library: one methodology per link in the money chain (webhooks & fulfilment, entitlements, billing config), each an Agent Skill with its own bundled references.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-observability",
+      "source": "./skills/observability",
+      "description": "The observability loop's skill library: one methodology per lens (uptime-and-heartbeats, crash-reporting, log-quality, tracing-and-metrics), each an Agent Skill the run can open mid-pass.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-alerts",
+      "source": "./skills/alerts",
+      "description": "The alerts loop's skill library: one methodology per lens (rule-quality, coverage-gaps), each an Agent Skill the run can open mid-pass.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "tekk-product-analytics",
+      "source": "./skills/product-analytics",
+      "description": "The product-analytics loop's skill library: one methodology per lens (event-hygiene, event-coverage), each an Agent Skill the run can open mid-pass.",
+      "version": "1.0.0"
+    }
+  ]
+}

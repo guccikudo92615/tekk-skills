@@ -1,0 +1,5 @@
+{
+  "name": "tekk-performance",
+  "description": "The performance loop's skill library: one methodology per lens (query-latency, hot-path-blocking, infra-spend, algorithmic-cost), each an Agent Skill the run can open mid-pass.",
+  "version": "1.0.0"
+}

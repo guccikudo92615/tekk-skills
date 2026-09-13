@@ -1,0 +1,5 @@
+{
+  "name": "tekk-ai-engineering",
+  "description": "The AI-engineering loop's skill library: one methodology per lens (context engineering, harness, evals, retrieval), each an Agent Skill with its own bundled references.",
+  "version": "1.0.0"
+}

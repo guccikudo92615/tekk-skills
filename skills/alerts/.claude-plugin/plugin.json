@@ -1,0 +1,5 @@
+{
+  "name": "tekk-alerts",
+  "description": "The alerts loop's skill library: one methodology per lens (rule-quality, coverage-gaps), each an Agent Skill the run can open mid-pass.",
+  "version": "1.0.0"
+}

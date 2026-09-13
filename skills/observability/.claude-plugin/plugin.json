@@ -1,0 +1,5 @@
+{
+  "name": "tekk-observability",
+  "description": "The observability loop's skill library: one methodology per lens (uptime-and-heartbeats, crash-reporting, log-quality, tracing-and-metrics), each an Agent Skill the run can open mid-pass.",
+  "version": "1.0.0"
+}

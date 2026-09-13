@@ -1,0 +1,5 @@
+{
+  "name": "tekk-code-quality",
+  "description": "The code-quality loop's skill library: one methodology per lens (architecture, propagation, deslop), each an Agent Skill with its own bundled references.",
+  "version": "1.0.0"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "tekk-testing",
+  "description": "The testing loop's skill library: one methodology per lens (coverage, flakiness, suite-speed), each an Agent Skill the run can open mid-pass.",
+  "version": "1.0.0"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "tekk-product-analytics",
+  "description": "The product-analytics loop's skill library: one methodology per lens (event-hygiene, event-coverage), each an Agent Skill the run can open mid-pass.",
+  "version": "1.0.0"
+}
