@@ -1,14 +1,32 @@
 # Tekk skills
 
-The review methods behind [Tekk](https://tekk.coach)'s autonomous loops — **42 [Agent Skills](https://agentskills.io) across 12 domains**, from tenant isolation to webhook fulfilment to what an agent costs to run.
+Two things live here, and most people want the first.
 
-Tekk runs these continuously against a connected repository and brings you a proposal when one of them finds something. This repository is the methods themselves, free to install into whatever agent you already use.
+1. **The Tekk plugin** — 4 skills for driving your [Tekk](https://tekk.coach) board from your coding agent, bundled with the Tekk MCP server.
+2. **The review methods** — **42 [Agent Skills](https://agentskills.io) across 12 domains**, from tenant isolation to webhook fulfilment to what an agent costs to run. These are what Tekk's autonomous loops apply to a codebase. They need no account.
 
-> **Generated — do not edit here.** Every file is built from the Tekk loop engine and pushed on each release. A fix belongs upstream; an edit made here is overwritten by the next push. Issues and discussion are welcome.
+> **Generated — do not edit here.** Every file is built from the Tekk engine and pushed on each release. A fix belongs upstream; an edit made here is overwritten by the next push. Issues and discussion are welcome.
 
-## Install
+## Drive Tekk from your agent
 
-Everything, into Claude Code:
+Installs `sweep`, `blitz`, `triage`, `spec` and connects the board in one step:
+
+```
+/plugin marketplace add guccikudo92615/tekk-skills
+/plugin install tekk@tekk
+```
+
+You need a Tekk account for these — they act on your board. The MCP server authenticates in the browser; nothing is pasted and no key is stored.
+
+For Codex and other agents, take the skills on their own and configure the MCP server separately:
+
+```bash
+npx skills add guccikudo92615/tekk-skills --skill sweep --skill blitz --skill triage --skill spec -a codex
+```
+
+## Install the review methods
+
+No account needed. Everything, into Claude Code:
 
 ```bash
 npx skills add guccikudo92615/tekk-skills

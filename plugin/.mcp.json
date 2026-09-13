@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tekk": {
+      "type": "http",
+      "url": "https://app.tekk.coach/api/mcp"
+    }
+  }
+}

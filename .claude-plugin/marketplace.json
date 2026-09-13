@@ -5,9 +5,15 @@
     "url": "https://tekk.coach"
   },
   "metadata": {
-    "description": "The review skills behind Tekk's autonomous loops — one plugin per loop, each a shelf of methods."
+    "description": "Tekk's skills: one plugin to drive your board from your agent, and one per review loop."
   },
   "plugins": [
+    {
+      "name": "tekk",
+      "source": "./plugin",
+      "description": "Drive your Tekk board from your coding agent: sweep the proposal inbox, blitz specs into parallel sessions, triage the board against git, and write specs that can actually close. Bundles the Tekk MCP server.",
+      "version": "1.0.0"
+    },
     {
       "name": "tekk-security",
       "source": "./skills/security",
