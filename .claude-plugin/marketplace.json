@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "tekk",
-      "source": "./plugin",
+      "source": "./",
       "description": "Drive your Tekk board from your coding agent: sweep the proposal inbox, blitz specs into parallel sessions, triage the board against git, and write specs that can actually close. Bundles the Tekk MCP server.",
       "version": "1.0.0"
     }
