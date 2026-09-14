@@ -1,6 +1,6 @@
 {
   "name": "tekk",
-  "description": "Drive your Tekk board from your coding agent: sweep the proposal inbox, blitz specs into parallel sessions, triage the board against git, and write specs that can actually close. Bundles the Tekk MCP server.",
-  "version": "1.0.0",
+  "description": "Drive your Tekk board from your coding agent: sweep the proposal inbox, blitz specs into parallel sessions, triage the board against git, write specs that can actually close, and get grilled about your product so your loops audit what you care about. Bundles the Tekk MCP server.",
+  "version": "1.1.0",
   "author": { "name": "Tekk", "url": "https://tekk.coach" }
 }
