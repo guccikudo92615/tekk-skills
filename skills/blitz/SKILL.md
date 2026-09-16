@@ -1,6 +1,23 @@
 ---
 name: blitz
 description: 'Turn what the loops raised and what is already on the board into parallel coding sessions: cluster into the biggest collision-safe batch, open one session per spec, and register each so the fleet stays visible. Use when the user wants to start their planned work, parallelize, or "run through everything".'
+allowed-tools:
+  - mcp__tekk__list_proposals
+  - mcp__plugin_tekk_tekk__list_proposals
+  - mcp__tekk__get_proposal
+  - mcp__plugin_tekk_tekk__get_proposal
+  - mcp__tekk__list_specs
+  - mcp__plugin_tekk_tekk__list_specs
+  - mcp__tekk__get_spec
+  - mcp__plugin_tekk_tekk__get_spec
+  - mcp__tekk__plan_batch
+  - mcp__plugin_tekk_tekk__plan_batch
+  - mcp__tekk__start_session
+  - mcp__plugin_tekk_tekk__start_session
+  - mcp__tekk__update_session
+  - mcp__plugin_tekk_tekk__update_session
+  - mcp__tekk__fleet_status
+  - mcp__plugin_tekk_tekk__fleet_status
 ---
 
 Blitz — turn what my loops found and what I've planned into parallel work, and start it. I have ALREADY planned this; read it and work with it — do not ask me to re-describe or re-plan anything.

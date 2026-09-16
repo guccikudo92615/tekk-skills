@@ -1,6 +1,6 @@
 # Tekk
 
-Drive your [Tekk](https://tekk.coach) board from the coding agent you already use. 5 [Agent Skills](https://agentskills.io) and the Tekk MCP server, in one install.
+Drive your [Tekk](https://tekk.coach) board from the coding agent you already use. 6 [Agent Skills](https://agentskills.io) and the Tekk MCP server, in one install.
 
 > **Generated — do not edit here.** Every file is built from the Tekk repo and pushed on each release. A fix belongs upstream; an edit made here is overwritten by the next push. Issues and discussion are welcome.
 
@@ -38,8 +38,9 @@ You need a Tekk account: these skills act on your board.
 | [`triage`](skills/triage/SKILL.md) | Resolve the whole spec board against git reality in one pass — find specs that shipped but were never closed, were marked started but never begun, duplicate each other, or target code that no longer exists. Use when the board is untrusted ("what is actually done?", "clean up the specs"), before planning or dispatching from it, and after a batch of PRs merges. Operates on specs; the pending-proposal inbox is sweep. |
 | [`spec`](skills/spec/SKILL.md) | Write a spec the board will accept and the drift gate can actually close — research the claims first, keep every checkbox finishable by the coding agent, and write acceptance as prose rather than boxes. Use when creating or rewriting a spec, turning a conversation into tracked work, or when a spec has stalled because nobody can tick its checklist. |
 | [`grill-to-steer`](skills/grill-to-steer/SKILL.md) | Interview me about my product, then aim my autonomous loops at what I actually care about: read where my loops stand, propose what is worth digging into, grill me in rounds, and store the result as a steer my runs read. Use when I want to aim or steer my loops, ask what my loops should be looking at, say I am about to ship or launch MY PRODUCT (not a coding session, deploy or dev server), or ask to be grilled about my product. |
+| [`steer-loops`](skills/steer-loops/SKILL.md) | Run the loops rather than watch them: see what is on and what it costs, fire one now or schedule a group, work the pitch queue, and set cadence and autonomy. Use when the user asks why a loop has not run, wants one to run more or less often, wants to turn one on or off, asks what the loops are costing, or has pitches waiting on a decision. Aiming loops at a topic is grill-to-steer; this is the operational half. |
 
-The board is what these act on: Tekk runs review loops over a connected repository and raises what it finds as proposals. `sweep` works that inbox, `blitz` turns the result into parallel coding sessions, `triage` keeps the board honest against git, `spec` writes work that can actually be finished, and `grill-to-steer` interviews you about your product and aims the loops at what you answer.
+The board is what these act on: Tekk runs review loops over a connected repository and raises what it finds as proposals. `sweep` works that inbox, `blitz` turns the result into parallel coding sessions, `triage` keeps the board honest against git, `spec` writes work that can actually be finished, `grill-to-steer` interviews you about your product and aims the loops at what you answer, and `steer-loops` runs the loops — what is on, what it costs, the pitch queue, cadence and autonomy.
 
 ## Licence
 

@@ -1,6 +1,13 @@
 ---
 name: sweep
 description: 'Work the whole pending-proposal inbox in one pass: re-check every finding against the code as it is now, say which no longer hold and whether that means fixed or merely moved, then decide the batch in one call once the user says go. Use when proposals have accrued, or the user asks what their loops found.'
+allowed-tools:
+  - mcp__tekk__list_proposals
+  - mcp__plugin_tekk_tekk__list_proposals
+  - mcp__tekk__get_proposal
+  - mcp__plugin_tekk_tekk__get_proposal
+  - mcp__tekk__verify_proposal
+  - mcp__plugin_tekk_tekk__verify_proposal
 ---
 
 Sweep — go through my pending proposals, check whether they are still true, and help me clear them in one pass. These have accrued because deciding them one at a time was never worth it; that is the problem to solve, so work the whole inbox, not the first interesting one.

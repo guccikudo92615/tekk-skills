@@ -1,6 +1,15 @@
 ---
 name: spec
 description: 'Write a spec the board will accept and the drift gate can actually close — research the claims first, keep every checkbox finishable by the coding agent, and write acceptance as prose rather than boxes. Use when creating or rewriting a spec, turning a conversation into tracked work, or when a spec has stalled because nobody can tick its checklist.'
+allowed-tools:
+  - mcp__tekk__list_specs
+  - mcp__plugin_tekk_tekk__list_specs
+  - mcp__tekk__get_spec
+  - mcp__plugin_tekk_tekk__get_spec
+  - mcp__tekk__create_spec
+  - mcp__plugin_tekk_tekk__create_spec
+  - mcp__tekk__update_spec
+  - mcp__plugin_tekk_tekk__update_spec
 ---
 
 Write a spec that is implementation-ready and can actually reach `completed`. Two different things go wrong, and both are permanent once the spec exists: a body whose claims were guessed, and a checklist nobody can finish.

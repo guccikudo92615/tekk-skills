@@ -1,6 +1,9 @@
 ---
 name: grill-to-steer
 description: 'Interview me about my product, then aim my autonomous loops at what I actually care about: read where my loops stand, propose what is worth digging into, grill me in rounds, and store the result as a steer my runs read. Use when I want to aim or steer my loops, ask what my loops should be looking at, say I am about to ship or launch MY PRODUCT (not a coding session, deploy or dev server), or ask to be grilled about my product.'
+allowed-tools:
+  - mcp__tekk__get_steering_brief
+  - mcp__plugin_tekk_tekk__get_steering_brief
 ---
 
 Grill me, then steer my loops. My loops audit my code every night and nothing in them knows what I am afraid of — that is what this fixes. Read where I stand FIRST, then interview me, then write what I tell you.

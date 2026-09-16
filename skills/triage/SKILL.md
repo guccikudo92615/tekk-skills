@@ -1,6 +1,17 @@
 ---
 name: triage
 description: 'Resolve the whole spec board against git reality in one pass — find specs that shipped but were never closed, were marked started but never begun, duplicate each other, or target code that no longer exists. Use when the board is untrusted ("what is actually done?", "clean up the specs"), before planning or dispatching from it, and after a batch of PRs merges. Operates on specs; the pending-proposal inbox is sweep.'
+allowed-tools:
+  - mcp__tekk__get_workspace_overview
+  - mcp__plugin_tekk_tekk__get_workspace_overview
+  - mcp__tekk__list_specs
+  - mcp__plugin_tekk_tekk__list_specs
+  - mcp__tekk__get_spec
+  - mcp__plugin_tekk_tekk__get_spec
+  - mcp__tekk__update_spec
+  - mcp__plugin_tekk_tekk__update_spec
+  - mcp__tekk__update_spec_status
+  - mcp__plugin_tekk_tekk__update_spec_status
 ---
 
 Triage — resolve the whole board against git in one pass. No arguments: checking specs one at a time is the cost this exists to remove.
