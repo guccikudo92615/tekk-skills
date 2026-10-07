@@ -30,7 +30,7 @@ A spec's status is a **claim, not a fact**. Nobody lies on purpose. An agent edi
 Each step narrows the next.
 
 1. **`get_workspace_overview`** — the drift block names specs whose status disagrees with what merged. Read it as a list of *candidates*, never verdicts, and read the misreporting section below first.
-2. **`list_specs`** — the whole open board. Titles and dates only; do not fetch bodies yet.
+2. **`list_specs`** — the whole open board. A page holds at most 100 rows, so call it with `limit: 100` and keep calling with `offset` raised by 100 while the response says `hasMore`. One page is not the board: it is sorted newest activity first, so the specs most likely to have rotted are the ones on the last page. Titles and dates only; do not fetch bodies yet.
 3. **Cluster before you read.** Group by theme and by creation date. Specs filed within minutes of each other are usually one loop run's output and are the richest source of duplicates. A cluster costs one investigation and resolves several specs.
 4. **Verify each cluster against code** in one batched pass — grep the claim, not the title.
 5. **Act:** repair statuses, propose closures, record every verdict in the body it belongs to.
@@ -39,7 +39,7 @@ Each step narrows the next.
 
 **Shipped but never closed.** The spec describes behaviour that now exists. Grep the feature's distinguishing symbol, not its title, which will have drifted. The hard case is a spec whose implementation moved: one asked for a field on a particular module, and it shipped in a different module off a different table, so every search by the spec's own words missed it for months.
 
-**Marked started, never started.** Zero checklist items ticked, no PR, drift saying not-started. Usually the automatic move described below, not a stalled human. Move it back to `todo` — a factual repair, no ceremony.
+**Marked started, never started.** Zero checklist items ticked, no PR, drift saying not-started. Usually an old automatic move (see below) or an agent that announced a start and never began, not a stalled human. Move it back to `todo` — a factual repair, no ceremony.
 
 **Same bug, two specs.** Compare by the file and line each names, never by title: the same defect gets two unrelated-sounding names months apart. Keep the better-written one, propose closing the other, and record in the survivor's `## Out of scope` anything unique the closed one carried, so the intent survives the closure.
 
@@ -57,9 +57,9 @@ Each step narrows the next.
 
 Recognise these or you will "fix" specs that were fine and trust verdicts that are wrong.
 
-- **Editing a spec marks it started.** Updating a spec moves a `todo` spec to `in-progress` on a **description** edit. So your own pass creates the anomaly it reports. **Reset the status after every body edit.** Edits that pass no description (adding file scopes, retitling) do not trip it, so fill those in freely.
+- **Editing a spec used to mark it started.** A description edit once moved a `todo` spec to `in-progress` as a side effect. It no longer does — `update_spec` changes text and nothing else, so your own edits leave status alone and need no reset. But specs edited before that change may still carry the move, which is why the never-started kind is common on older boards.
 - **Drift misjudges parent specs, both ways.** A parent with no checkboxes reads as complete, so any historical closing PR makes it look done — even at zero children finished. Inversely, a parent carrying one stray box is judged on that box while its children are ignored. **Believe the child count, never the verdict.**
-- **A branch name can claim a closure.** A spec id anywhere in a branch name can mark a PR as closing it, with no keyword and no way to retract after merge. A narrow repair branched with a spec's id in its name gets recorded as completing that whole spec.
+- **A branch name used to claim a closure.** A spec id in a branch name once marked a PR as closing that spec, with no keyword. Only a `Closes` line in the PR does now, but closures recorded before that change still stand: a narrow repair branched with a spec's id in its name may be on record as completing the whole spec. Read the PR's diff before trusting an old closure.
 
 ## Closing a spec
 
