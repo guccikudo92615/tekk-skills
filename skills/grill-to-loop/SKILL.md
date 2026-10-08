@@ -55,13 +55,15 @@ Round one is usually:
 
 **Never ask about Tekk's own vocabulary.** What a diff means to the loop, how its titles should read, when it is worth running — you write those, from the answers above. If you find yourself about to ask "should this be subject, suspect or intent?", answer it yourself.
 
+**How wide a run reads is not a question either.** Every loop, theirs included, reads at one of three widths — what changed since it last ran, one area of the code read whole, or everything its question covers — and Tekk picks the width for each run from the loop's record. Their loop gets this without asking; it is not configurable yet, so put no scope settings in the manifest.
+
 ## 4. Write it, show it, create it
 
 A loop is a **manifest** plus a **shelf of skills**. Write both.
 
 **`loopMd`** is the loop's identity, injected on every run: what it is for, the seams it cares about, what counts as a finding and what explicitly does not. Write the false-positive answer into it as a rule. Do NOT restate generic discipline — "never guess", "one proposal per run", "cite your evidence" — every loop already receives all of that, and repeating it crowds out the part that is actually about this loop.
 
-**The shelf** is one or more skills, and exactly ONE is opened per run — whichever owns the most changed files. One skill is correct for a narrow loop. Use several when the loop really has distinct methods (how you audit delivery is not how you audit retries), and order them specific-first, with the most general last. Each skill is a `SKILL.md`:
+**The shelf** is one or more skills. None is pre-loaded: each run reads the shelf listing and chooses the skill that fits what it is about, so each skill's `description` must say plainly when to pick it. One skill is correct for a narrow loop. Use several when the loop really has distinct methods (how you audit delivery is not how you audit retries), and list them specific-first, with the most general last. Each skill is a `SKILL.md`:
 
 ```
 ---
