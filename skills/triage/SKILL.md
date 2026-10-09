@@ -12,6 +12,12 @@ allowed-tools:
   - mcp__plugin_tekk_tekk__update_spec
   - mcp__tekk__update_spec_status
   - mcp__plugin_tekk_tekk__update_spec_status
+  - mcp__tekk__consolidate_board
+  - mcp__plugin_tekk_tekk__consolidate_board
+  - mcp__tekk__list_merge_suggestions
+  - mcp__plugin_tekk_tekk__list_merge_suggestions
+  - mcp__tekk__decide_merge_suggestion
+  - mcp__plugin_tekk_tekk__decide_merge_suggestion
 ---
 
 Triage — resolve the whole board against git in one pass. No arguments: checking specs one at a time is the cost this exists to remove.
@@ -31,9 +37,10 @@ Each step narrows the next.
 
 1. **`get_workspace_overview`** — the drift block names specs whose status disagrees with what merged. Read it as a list of *candidates*, never verdicts, and read the misreporting section below first.
 2. **`list_specs`** — the whole open board. A page holds at most 100 rows, so call it with `limit: 100` and keep calling with `offset` raised by 100 while the response says `hasMore`. One page is not the board: it is sorted newest activity first, so the specs most likely to have rotted are the ones on the last page. Titles and dates only; do not fetch bodies yet.
-3. **Cluster before you read.** Group by theme and by creation date. Specs filed within minutes of each other are usually one loop run's output and are the richest source of duplicates. A cluster costs one investigation and resolves several specs.
-4. **Verify each cluster against code** in one batched pass — grep the claim, not the title.
-5. **Act:** repair statuses, propose closures, record every verdict in the body it belongs to.
+3. **Start from what the board already proposes.** `list_merge_suggestions` holds the merges the nightly consolidation found and never applies on its own; `consolidate_board` (a dry run unless told otherwise) returns a fresh plan of groups and merges, each with the reason, and `refused` set where the rules said no. Both are candidates, not verdicts: check each against the code like anything else, and never pass `apply: true` without the user's go. When neither is available, cluster by hand.
+4. **Cluster before you read.** Group by theme and by creation date. Specs filed within minutes of each other are usually one loop run's output and are the richest source of duplicates. A cluster costs one investigation and resolves several specs.
+5. **Verify each cluster against code** in one batched pass — grep the claim, not the title.
+6. **Act:** repair statuses, propose closures, record every verdict in the body it belongs to.
 
 ## What rots, and how to find it
 
@@ -41,9 +48,9 @@ Each step narrows the next.
 
 **Marked started, never started.** Zero checklist items ticked, no PR, drift saying not-started. Usually an old automatic move (see below) or an agent that announced a start and never began, not a stalled human. Move it back to `todo` — a factual repair, no ceremony.
 
-**Same bug, two specs.** Compare by the file and line each names, never by title: the same defect gets two unrelated-sounding names months apart. Keep the better-written one, propose closing the other, and record in the survivor's `## Out of scope` anything unique the closed one carried, so the intent survives the closure.
+**Same bug, two specs.** Pending merge suggestions are the first place to look. Compare by the file and line each names, never by title: the same defect gets two unrelated-sounding names months apart. Keep the better-written one, propose closing the other, and record in the survivor's `## Out of scope` anything unique the closed one carried, so the intent survives the closure.
 
-**One job, N specs.** Several loops independently proposing the same work produces sibling specs that each look reasonable. The tell: no pattern for the thing exists in the repo yet, so whoever ships first sets the convention for all of them — which makes it one PR by nature. Propose merging into the broadest, carrying across every specific file, line and correction from each.
+**One job, N specs.** Several loops independently proposing the same work produces sibling specs that each look reasonable. The tell: no pattern for the thing exists in the repo yet, so whoever ships first sets the convention for all of them — which makes it one PR by nature. Propose merging into the broadest, carrying across every specific file, line and correction from each. A merge suggestion, once the user agrees, is applied with one `decide_merge_suggestion` call and does the carrying for you: the survivor gains an `## Absorbed` section and the folded spec points at it.
 
 **Premise gone.** The spec targets a model the product no longer has. Check the schema and the route, not the prose. Propose closing, and record what a fresh spec would need to be grounded against.
 
