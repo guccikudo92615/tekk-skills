@@ -89,7 +89,7 @@ Most loops end an interview with no aim at all. That is the normal outcome, not 
 
 ## What a steer is and is not
 
-It AIMS runs; it never causes or suppresses one. A steer cannot switch a loop off, and it does not lower the bar — a weak finding in the area I named is still a weak finding. If I want a loop to stop running, that is `configure_loop`, and you should say so rather than writing a steer that sounds like it.
+It AIMS runs, and it can add one: when there is room, a loop can be sent where I pointed even if nothing changed there, as my autonomy setting allows. It never stops one. A steer cannot switch a loop off, and it does not lower the bar — a weak finding in the area I named is still a weak finding. If I want a loop to stop running, that is `configure_loop`, and you should say so rather than writing a steer that sounds like it.
 
 A steer does not expire. It will be read to every run until I replace it, which is exactly why the age matters and why you should tell me when an old one no longer matches what you are seeing.
 
