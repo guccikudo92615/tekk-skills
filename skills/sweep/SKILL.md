@@ -14,6 +14,7 @@ Sweep — go through my pending proposals, check whether they are still true, an
 
 ## 1. Read — what is waiting
 Call `list_proposals` (pending). Each row carries `loopSkill` — the loop that raised it — and `evidenceCheck`, a summary of the last time its evidence was verified (`null` means never re-checked since it was written). When the finding stated a premise — the claim its citations were gathered to support — the row also carries `premiseCheck`, its last verdict (`null` means no premise was stated).
+Some rows also carry `sameShapeAs` — other proposals that make the same claim — and the page carries `themes`, each one claim with the files every proposal in it cites.
 Group by loop and show me the shape of the queue: which loops are producing, how much, and how old. Severity will not separate them for you — these are mostly the ones nothing marked urgent, which is why they are still here.
 
 ## 2. Verify — is it still true?
@@ -27,7 +28,7 @@ Evidence that no longer resolves means one of two OPPOSITE things, and the whole
 - The code MERELY MOVED — a refactor, a rename, a file split. The finding may still be entirely true and just cites the wrong lines. That is a revise, not a reject.
 Read enough of the current code to say which, and say so per proposal with the failing citations. Never auto-reject on a failed check: a refactor is not a fix, and discarding a real finding because someone moved a file is the expensive mistake here.
 A premise that now comes back `failed` means the code changed under the finding: it was fixed, or the claim it rests on is no longer true. Treat it like a failed citation — read the current code and say which. A `held` premise only means nothing was found against it, never that it is proven.
-Also flag any two proposals that are the same finding from different loops — say which you would keep. Do not merge them yourself.
+Then work the `themes` from step 1: each is one finding raised more than once, often by different loops about different files under different titles. Present it as ONE finding with several sites, not as separate cards — the claim once, then each proposal with the files it cites — and say which proposal you would keep as the carrier and whether the others' sites belong folded into it. A theme is a recorded match, not a verdict: read the members, and if one does not actually make the same claim, say so and treat it on its own. Two proposals you judge to be the same finding without a recorded match are still worth flagging; say that the match is yours rather than recorded. Do not merge or reject them yourself.
 
 ## 4. Decide — one pass, on my say-so
 Give me a single list: accept / revise / reject, one line of reasoning each. Then STOP and wait.
