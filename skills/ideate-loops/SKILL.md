@@ -1,6 +1,6 @@
 ---
 name: ideate-loops
-description: 'Work out which loops are worth building for this project: read what is connected and what the existing loops already cover, ask what keeps hurting, and come back with a short ranked list — each one labelled as a new loop, an aim on a loop they already run, or a connection that would unlock it. Use when someone asks what loops they should have, what Tekk could watch for them, what to do with a tool they just connected, or says they do not know where to start.'
+description: 'Work out which loops are worth building for this project: read what is connected and what the existing loops already cover, ask what keeps hurting, and come back with a short ranked list — each one labelled as a new loop, a steer for a loop they already run, or a connection that would unlock it. Use when someone asks what loops they should have, what Tekk could watch for them, what to do with a tool they just connected, or says they do not know where to start.'
 allowed-tools:
   - mcp__tekk__list_connections
   - mcp__plugin_tekk_tekk__list_connections
@@ -62,7 +62,7 @@ Deploy → regression watch                          AIM on `reliability`
 
 Every idea carries a **kind**, and the label is what keeps this honest:
 
-- **AIM on `<loop>`** — a loop you already run reads that code and was never told to care about this. Instant, free, nothing new to maintain. **Most good ideas are aims; lead with them.**
+- **STEER `<loop>`** — a loop you already run reads that code and was never pointed at this. One assignment of their own for its next run, nothing new to maintain. **Most good ideas are steers; lead with them.**
 - **NEW loop** — nothing you run covers this source or this method.
 - **CONNECT `<tool>`** — the idea is good and needs something not connected yet. Say what it would unlock, once, as an answer to a problem they stated — not as a nag.
 
@@ -71,7 +71,7 @@ Rank by what they told you hurts, not by how clever the combination is. Say plai
 ## 5. Hand off the one they pick
 
 - **A new loop** → start `grill-to-loop` with the idea as the opening ask ("they want a loop that watches for X, joining Y and Z; here is what they said about it"). Do not build it here — that interview exists because a loop that skips it comes out vague.
-- **An aim** → set it on that loop, in their words, and confirm what it will change.
+- **A steer** → write it with `steer_loop` in their words (the area, why it matters, what to confirm or refute), on an explicit yes, and say when it runs: on that loop's next background wake.
 - **A connection** → tell them what to connect and what it unlocks, then stop.
 
 If nothing on the list appeals, that is a real answer. Say what you would watch for instead, and leave it.
@@ -79,5 +79,5 @@ If nothing on the list appeals, that is a real answer. Say what you would watch 
 ## What a good session leaves behind
 
 - They can name the one thing they most want watched, which they probably could not at the start.
-- At least one idea was an aim, not a build.
+- At least one idea was a steer, not a build.
 - Nothing was created that they did not choose.

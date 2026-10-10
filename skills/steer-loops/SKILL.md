@@ -28,7 +28,7 @@ allowed-tools:
 
 Steer the loops — they are configurable, not just observable. Everything the loops settings screen does is here, and an answer to "why hasn't it run?" is three calls away.
 
-This is the **operational** half: what is on, what it costs, what runs when. Aiming a loop at a subject — what it should care about — is `grill-to-steer`, which writes a steer the runs read. If the user wants better findings, that is the other skill. If they want *different scheduling, spend or state*, stay here.
+This is the **operational** half: what is on, what it costs, what runs when. Pointing a loop at a subject — what its next run should look at — is `grill-to-steer`, which writes a steered assignment for that run. If the user wants better findings, that is the other skill. If they want *different scheduling, spend or state*, stay here.
 
 ## Ground rules
 

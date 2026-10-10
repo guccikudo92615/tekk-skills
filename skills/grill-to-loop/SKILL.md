@@ -1,6 +1,6 @@
 ---
 name: grill-to-loop
-description: 'Interview the user about a problem that keeps happening to them, then build a Tekk loop that watches for it — reading what their loops already cover first, so an existing loop gets aimed rather than duplicated. Use when someone wants to build or create a loop, wants Tekk to "watch for" or "keep an eye on" something, or describes a recurring problem they are tired of finding by hand.'
+description: 'Interview the user about a problem that keeps happening to them, then build a Tekk loop that watches for it — reading what their loops already cover first, so an existing loop gets steered rather than duplicated. Use when someone wants to build or create a loop, wants Tekk to "watch for" or "keep an eye on" something, or describes a recurring problem they are tired of finding by hand.'
 allowed-tools:
   - mcp__tekk__list_loops
   - mcp__plugin_tekk_tekk__list_loops
@@ -31,13 +31,14 @@ A loop is not a reminder and not a linter. It wakes on its own, reads this codeb
 
 Tell them, in two or three lines, what is already covering this ground.
 
-**If an existing loop overlaps the ask, say so and offer to AIM it instead.** Most "I wish Tekk watched for X" is a loop that already reads those files and was never told to care about X. Aiming one is instant, costs nothing, and does not add a thing to maintain. Building a fresh loop is right when:
+**If an existing loop overlaps the ask, say so and offer to STEER it instead.** Most "I wish Tekk watched for X" is a loop that already reads those files and was never pointed at X. Steering one (`steer_loop`) hands it an assignment of their own — the area, why it matters, what to confirm or refute — for its next run; what that run finds then shapes where Tekk aims the loop afterwards. It adds nothing to maintain. Building a fresh loop is right when:
 
 - no existing loop reads that source at all, or
 - the method is genuinely different from what any of them do, or
+- what they describe is a standing watch, not one look at an area, or
 - they hear the offer and still want their own.
 
-Take their answer. If they want the aim, set it and stop — that is a good outcome, not a failed one.
+Take their answer. If they want the steer, write it with `steer_loop` (on an explicit yes) and stop — that is a good outcome, not a failed one.
 
 ## 3. Grill, in rounds
 
@@ -94,11 +95,11 @@ stripe-drift            now            proposed
   enabled               off            on
   autonomy              —              ask (it proposes; you decide)
   runs at most every    —              48h
-  aimed at              —              "we just moved to Stripe Connect;
-                                        watch the connected-account path"
+  first look            —              "we just moved to Stripe Connect;
+                                        the connected-account path"
 ```
 
-Then apply: `configure_loop` for enabled, autonomy and cadence — **owner-only**, so if this user is not an owner, mark those lines "needs an owner" and say who to ask rather than failing halfway. The aim is a separate, anyone-can-set instruction; if this workspace has no way to set one yet, say so and move on.
+Then apply: `configure_loop` for enabled, autonomy and cadence — **owner-only**, so if this user is not an owner, mark those lines "needs an owner" and say who to ask rather than failing halfway. The first look is a steered assignment for the loop's first run, written with `steer_loop` once the loop exists and is switched on; anyone can write one.
 
 Finish by telling them what happens next, in one line: **the first run asks before it runs.** Whatever the autonomy setting, a loop that has never produced a run anyone has read gets one card, once, with its estimated cost on it — and the same after every edit. `run_loop` returns `pitched`; greenlighting it runs.
 
