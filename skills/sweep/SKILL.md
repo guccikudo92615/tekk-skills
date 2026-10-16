@@ -8,6 +8,8 @@ allowed-tools:
   - mcp__plugin_tekk_tekk__get_proposal
   - mcp__tekk__verify_proposal
   - mcp__plugin_tekk_tekk__verify_proposal
+  - mcp__tekk__rank_proposals
+  - mcp__plugin_tekk_tekk__rank_proposals
 ---
 
 Sweep — go through my pending proposals, check whether they are still true, and help me clear them in one pass. These have accrued because deciding them one at a time was never worth it; that is the problem to solve, so work the whole inbox, not the first interesting one.
@@ -33,8 +35,10 @@ A premise that now comes back `failed` means the code changed under the finding:
 Then work the `themes` from step 1: each is one finding raised more than once, often by different loops about different files under different titles. Present it as ONE finding with several sites, not as separate cards — the claim once, then each proposal with the files it cites — and say which proposal you would keep as the carrier and whether the others' sites belong folded into it. A theme is a recorded match, not a verdict: read the members, and if one does not actually make the same claim, say so and treat it on its own. Two proposals you judge to be the same finding without a recorded match are still worth flagging; say that the match is yours rather than recorded. Do not merge or reject them yourself.
 For a low-confidence, failed or missing placement, say where you think it belongs — a spec on the board, beside one, or new work — and why, in one line. That is a suggestion for me, not a decision. A confident placement that looks wrong to you is worth the same line; otherwise leave it alone.
 
+Close this phase by RANKING the batch. A finding's own importance score was written about that finding alone, before it had any neighbour to compare against, so it barely separates anything: call `rank_proposals` ONCE per project, covering EVERY pending proposal in it, with a distinct `rank` for each (1 = do first) and a one-line `note` saying why it sits there relative to the others. A partial ranking is refused, and that is deliberate — a rank only means something against the whole batch. Rank by what is most worth doing now, using what you just learned: a finding whose claim no longer holds goes to the bottom, and a production-impact figure the finding did not measure (its `impactMeasurement` is empty, or only says it is latent) should be treated as an assumption, not a fact. Like verifying, ranking records an order and decides nothing, so do it without asking.
+
 ## 4. Decide — one pass, on my say-so
-Give me a single list: accept / revise / reject, one line of reasoning each. Then STOP and wait.
+Give me a single list, in rank order: accept / revise / reject, one line of reasoning each. Then STOP and wait.
 If I say go:
 - Use `decide_proposals` ONCE for the whole accept/reject batch. Do not loop over `accept_proposal`. Each accept lands where its placement says; where I agreed with your suggestion instead, put it on that entry as `placement` — `{ "as": "new" }`, or `{ "into": "<spec>", "as": "subtask" | "group" | "amend" | "duplicate" }` (a `group` needs a `title`). An entry the board cannot take that way comes back `placement_refused` with the reason and stays pending; tell me, do not retry it some other way on your own.
 - For each revise, call `revise_proposal` with feedback specific enough to act on ("the finding holds but cites src/old/path.ts; it moved to src/new/path.ts" beats "please update"). Revising is capped at three per proposal and costs credits, so make each one count.
