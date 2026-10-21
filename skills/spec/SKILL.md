@@ -34,13 +34,14 @@ Completion counts **every** `- [ ]` in the body, `## Acceptance` included. A box
 - **Waiting periods** — "watch one week of runs", "monitor for false positives", "observe after deploy". An agent cannot wait a week. If it genuinely needs measuring later, that is a follow-up spec.
 - **Out-of-band work** — anything done in a dashboard, another tool, or by another person.
 
-Write `## Acceptance` as **prose bullets (`-`), never checkboxes**, so criteria describe how to verify without gating completion. The cautionary case is real: a spec with four boxes, two of them "review with the team" and "watch one week", sat unstarted for a month while its work ran in production.
+The board enforces this: a checkbox that reads as a human decision, a waiting period, or work after the merge is rejected with the offending line named, and so is any checkbox under `## Acceptance`. Write `## Acceptance` as **prose bullets (`-`), never checkboxes**, so criteria describe how to verify without gating completion. The cautionary case is real: a spec with four boxes, two of them "review with the team" and "watch one week", sat unstarted for a month while its work ran in production.
 
 ## Shape
 
 - `## Summary` — first and required. Two to four sentences of plain English: what changes, why, who for. Written for someone who was not in the session that produced it. No file paths, no line numbers, no unexplained shorthand. On a feature, open with a user story: as a *who*, I want *what*, so that *why*.
+- `## Why` — required, right after the Summary. The purpose, for someone who has never seen the codebase: who is hurt or blocked today and how, what becomes possible once it ships, and what happens if it is never built. The Summary says what changes; this says what it is *for*. A coding agent reads it to choose between two ways of building when the steps run out. No file paths here, and it must stand alone — never "see the parent spec". The board rejects a body without one, and a Why that is only a pointer.
 - `## Sources` — every external input, each with a locator. A source you cannot link must be **digested** here: enough of what it actually said that a reader never needs the original. Characterising it ("most of it we already do") records nothing.
-- `## Problem / Context` — what is wrong or needed. This is where file:line grounding belongs.
+- `## Problem / Context` — what is wrong or needed in the code today. This is where file:line grounding belongs. It is evidence for the Why, not a replacement for it.
 - `## Findings` — what the session learned that is not a build step: what surprised you, what turned out false. Nothing else has room for it, so whatever you leave out is lost when the session ends.
 - `## Decisions` — the options weighed, the one taken, and why each other was rejected, with the evidence that settled it. An unrecorded rejection gets re-proposed in six months.
 - `## Build order` — an ordered checklist. Drift derives completion from it.
@@ -64,6 +65,24 @@ Half-finished is fine and honest: tick what you did, still write `Closes`, and t
 A small, indivisible change is a single standalone spec with its phases as an ordered `## Build order`. When a feature genuinely decomposes into independently-buildable parts, use a parent with sub-tasks, each carrying its own PR and file scope; the parent completes when its children do. Group several *independent* initiatives under an epic — never the phases of one feature.
 
 Declare `touches` — the file globs the work will change. It costs one field and it is what lets the board notice later that a spec's every declared path has changed in git while the spec sat open.
+
+## Facts that go stale
+
+Do not write a sequence number as a fact: "the next decision record is 0026", "the latest migration is 0180". It is true the day you write it and wrong once anything else lands, and a spec sits for days before it is built. Say "the next free number when you build this" and name the directory to list. The board warns when it sees the pattern.
+
+The same goes for a figure your Why leans on. Re-derive it from your own Sources just before you submit: a headline cost taken from an old model alias, when the current one is a third of it, weakens the case more than having no number.
+
+When a child's decision changes something its parent states, such as a count of tools or a default, update the parent in the same pass. Parent and children that disagree send the next agent to build two different things.
+
+## Say why, and say it where the reader will look
+
+The failure this section prevents is a body made entirely of implementation: components, tables, call sites, and no sentence about who it is for. Every detail in it can be right and a coding agent still cannot tell which of two reasonable builds serves the purpose, because the purpose is not written down anywhere. It is not in the repository either, so when the session ends it is gone.
+
+Before you submit, read the Summary and the Why as the person who will build this next week and has none of your context. If they could not say what the work is for, rewrite them.
+
+A **sub-task** is the spec most likely to be opened without its parent, by an agent dispatched to build exactly that piece. Its Why restates the parent's purpose in its own words, says what this part unlocks, and says what breaks if it is skipped. "Design decisions are in the parent" is not a Why.
+
+Editing is held to the same style. An edit that deletes the Why, the Summary or the build order is refused; a gap the spec already had comes back as a warning, so ticking a box on an older spec still works.
 
 ## Gotchas
 
