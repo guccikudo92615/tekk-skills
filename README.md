@@ -6,7 +6,13 @@ Drive your [Tekk](https://tekk.coach) board from the coding agent you already us
 
 ## Install
 
-In Claude Code — this also connects the MCP server, so there is nothing else to wire up:
+The quickest way, from inside your repository — signs you in, connects the repository, and wires Claude Code, Codex and Cursor:
+
+```bash
+npx tekk@latest init
+```
+
+Or by hand. In Claude Code — this also connects the MCP server, so there is nothing else to wire up:
 
 ```
 /plugin marketplace add guccikudo92615/tekk-skills
