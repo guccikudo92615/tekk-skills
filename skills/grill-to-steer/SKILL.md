@@ -18,6 +18,8 @@ Call `get_steering_brief`. One call; everything you need is in it. Do NOT also c
 
 It gives you `standsOut` (what is anomalous, already ordered), then per-loop detail: what each loop does, the question it would ask me, its settings, whether its schedule can be changed at all, the assignment its last run worked on with what came back (`lastAssignment`), and any assignments I already wrote that are still waiting (`waiting`). Read `lastAssignment` before you propose sending a loop anywhere: one that just looked at an area does not need sending there again, and a hypothesis it refuted is not worth asking again without new evidence.
 
+If you were handed here from `/feedback`, you already have what the last cycle taught: which loops' work was worth it, which was too small or wrong, and what nobody looked at. Start from that rather than asking it again.
+
 An EMPTY `standsOut` is a real answer, not a failed read. It means nothing is obviously wrong, and the interview is then about where I am going rather than what is stuck.
 
 ## 2. Tell me what stands out

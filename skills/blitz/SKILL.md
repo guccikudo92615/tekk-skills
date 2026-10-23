@@ -52,3 +52,6 @@ A pending proposal is not work yet — accepting it is my call, not yours. Do NO
 Then WAIT before launching those. Accepting creates the spec immediately but its body is written afterwards by a queued run, so for a minute or so the spec is just the proposal's one-line summary. `plan_batch` will not offer a spec that is still drafting, so re-run it until they appear rather than launching straight from the accept — a session started too early gets the summary instead of the spec.
 
 Aim for the largest safe parallel batch. Each spec completes on its own when its PR merges (Drift) — nothing to mark done. Finish by telling me what is running, what is waiting, and what I still have to decide.
+
+## Next — offer feedback
+End with one question: "Once these land, run `/feedback`?" It looks at what this blitz built, what merged and what it cost, asks me what was worth it, and re-aims the loops from my answers — the step that lets the loops learn from what was built rather than from my guess at sweep time. If every session has already finished, offer it now. Never start it without my yes.
