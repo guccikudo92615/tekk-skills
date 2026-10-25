@@ -1,6 +1,6 @@
 ---
 name: sweep
-description: 'Work the whole pending-proposal inbox in one pass: re-check every finding against the code as it is now, say which no longer hold and whether that means fixed or merely moved, then decide the batch in one call once the user says go. Use when proposals have accrued, or the user asks what their loops found.'
+description: 'Work the whole pending-proposal inbox in one pass: re-check every finding against the code as it is now, say which no longer hold and whether that means fixed or merely moved, judge what is left on six pass/fail criteria, then decide the batch in one call once the user says go. Use when proposals have accrued, or the user asks what their loops found.'
 allowed-tools:
   - mcp__tekk__list_proposals
   - mcp__plugin_tekk_tekk__list_proposals
@@ -37,13 +37,50 @@ For a low-confidence, failed or missing placement, say where you think it belong
 
 Some rows carry `optionGroup`: alternative ways to do ONE move, filed by the same run. They are one choice, not separate cards. Present the group once, the recommended option first, say what each trades against the others, and recommend exactly one to accept, or recommend rejecting the whole group when the problem no longer holds or none of the ways is right. Accepting one closes the rest as not chosen, which never counts against the loop, so never accept two, and when you accept one do not reject the others yourself. Rejecting every member is one rejection of the upgrade, not one per option. Give a group's members adjacent ranks. A direction filed beside the options is its own decision and not part of the group.
 
-Close this phase by RANKING the batch. A finding's own importance score was written about that finding alone, before it had any neighbour to compare against, so it barely separates anything: call `rank_proposals` ONCE per project, covering EVERY pending proposal in it, with a distinct `rank` for each (1 = do first) and a one-line `note` saying why it sits there relative to the others. A partial ranking is refused, and that is deliberate — a rank only means something against the whole batch. Rank by what is most worth doing now, using what you just learned: a finding whose claim no longer holds goes to the bottom, and a production-impact figure the finding did not measure (its `impactMeasurement` is empty, or only says it is latent) should be treated as an assumption, not a fact. Like verifying, ranking records an order and decides nothing, so do it without asking.
+## 4. Judge — six criteria, pass or fail
+Verifying tells you whether the citations still resolve. It does not tell you whether the finding is worth building, and a sweep that stops there accepts too much. So judge every proposal still standing against the code, on six criteria, each a plain pass or fail:
 
-## 4. Decide — one pass, on my say-so
-Give me a single list, in rank order: accept / revise / reject, one line of reasoning each. Then STOP and wait.
+1. **Real problem** — the stated mechanism holds in the code as it is now, and the consequence follows from it.
+2. **Fix works** — applying the plan as written removes the stated problem.
+3. **Focused** — one problem, one fix, nothing unrelated attached.
+4. **Measured before built** — no new tables, tools, harnesses or abstractions unless something measured shows the need.
+5. **Not already there** — no step redoes or parallels something the code or its tests already have.
+6. **Leads with best** — the headline is the most valuable item in the proposal.
+
+How to judge, so it does not go soft:
+- Read the proposal's full body with `get_proposal`, then read the code it names. Judge each criterion on its own before you form any overall view of the proposal.
+- Pass or fail, nothing between. No "pass, but", no partial credit. If you cannot establish a criterion from the code, it fails, and the critique says what you could not establish.
+- A pass on real problem or fix works names where you checked (`file:line`). A pass you cannot point at is a fail.
+- Every fail carries a one-line critique naming the line of code or the step of the plan it is about. "Could be more focused" is not a critique; "bundles a retry guard with the logging fix" is.
+- The loop's own severity, importance score and placement confidence are not evidence for any criterion. Do not let them lift a pass.
+- If you can start subagents, give the judging to fresh ones, a few proposals each: hand each the proposals' bodies and the repository, not the loops' scores, not the placements and not your triage notes. A judge that has read the author's score anchors on it.
+
+Then give each proposal ONE verdict, which follows from the criteria and not from how much you like it:
+- **act on it** — all six pass. The only verdict that recommends accept as written.
+- **act on part** — the problem is real, but the plan needs changing first: it fails focused, measured before built or leads with best, one of its steps is already there, or its fix fails in a way a revision can correct. Recommend revise, and write the revision from the critiques: what to drop, what to lead with, what to correct in the fix.
+- **not worth it** — the problem is real, and what is left once the unmeasured or already-present steps are removed is too small or not wanted now.
+- **wrong** — real problem fails, or the fix does not work and no revision would rescue it.
+
+A proposal whose code merely moved (step 3) is judged against where the code is now, but it still cites the old lines: even when all six pass, recommend revise to correct the citations, never accept as is.
+
+Expect most proposals to land at act on part: loops bundle. If you find yourself recommending accept on more than half the batch, go back over the passes on focused and measured before built before you show me anything.
+
+Show the result as one compact row per proposal: the six criteria as pass/fail, the verdict, and the critique of each fail. Judging records nothing on the board and decides nothing, so do it for the whole batch without asking.
+
+## 5. Rank
+RANK the batch. A finding's own importance score was written about that finding alone, before it had any neighbour to compare against, so it barely separates anything: call `rank_proposals` ONCE per project, covering EVERY pending proposal in it, with a distinct `rank` for each (1 = do first) and a one-line `note` saying why it sits there relative to the others. A partial ranking is refused, and that is deliberate — a rank only means something against the whole batch. Rank by what is most worth doing now, using what you just learned: act on it above act on part above not worth it above wrong, then by value within each verdict. An option group is ranked as one unit, placed by the verdict of the option you recommend (or as wrong when you recommend rejecting the whole group), and its members take consecutive ranks; a finding whose claim no longer holds goes to the bottom, and a production-impact figure the finding did not measure (its `impactMeasurement` is empty, or only says it is latent) should be treated as an assumption, not a fact. Like verifying, ranking records an order and decides nothing, so do it without asking.
+
+## 6. Decide — one pass, on my say-so
+Give me a single list, in rank order: accept / revise / reject, with the verdict and one line of reasoning each. The verdict sets the recommendation:
+- act on it → accept, unless its citations moved (step 3), which makes it a revise.
+- act on part → revise, with the critiques as the feedback.
+- not worth it → reject as `too-small`, or `not-now` when it is worth doing later.
+- wrong → reject as `wrong` when the problem does not hold, or `wrong-fix` when the problem is real and the plan is what fails.
+- A failed not already there that covers the whole proposal → reject as `already-done`.
+Never recommend accepting a proposal with a failed criterion. If I want it anyway, that is my call to make in my reply, not yours to make in the list. Then STOP and wait.
 If I say go:
-- Use `decide_proposals` ONCE for the whole accept/reject batch. Do not loop over `accept_proposal`. On a reject, carry my reason and its `category` (`wrong` is the only one that counts against the loop). On an accept, set `acceptCategory` only when I have said what it was worth (`caught-something`, `already-suspected`, `marginal`); do not ask me for it on every row — I usually cannot know until it is built, and that question belongs to `/feedback`. When I pick an option from a group, put only that one in it, as an accept; the others close on their own. When I decline a whole group (the problem is already fixed, or no way is right), put every member in it as a reject. Each accept lands where its placement says; where I agreed with your suggestion instead, put it on that entry as `placement` — `{ "as": "new" }`, or `{ "into": "<spec>", "as": "subtask" | "group" | "amend" | "duplicate" }` (a `group` needs a `title`). An entry the board cannot take that way comes back `placement_refused` with the reason and stays pending; tell me, do not retry it some other way on your own.
-- For each revise, call `revise_proposal` with feedback specific enough to act on ("the finding holds but cites src/old/path.ts; it moved to src/new/path.ts" beats "please update"). Revising is capped at three per proposal and costs credits, so make each one count.
+- Use `decide_proposals` ONCE for the whole accept/reject batch. Do not loop over `accept_proposal`. On a reject, carry my reason and its `category` (`wrong` is the only one that counts against the loop), with the failing criteria's critiques as the reason unless I gave my own. On an accept, set `acceptCategory` only when I have said what it was worth (`caught-something`, `already-suspected`, `marginal`); do not ask me for it on every row — I usually cannot know until it is built, and that question belongs to `/feedback`. When I pick an option from a group, put only that one in it, as an accept; the others close on their own. When I decline a whole group (the problem is already fixed, or no way is right), put every member in it as a reject. Each accept lands where its placement says; where I agreed with your suggestion instead, put it on that entry as `placement` — `{ "as": "new" }`, or `{ "into": "<spec>", "as": "subtask" | "group" | "amend" | "duplicate" }` (a `group` needs a `title`). An entry the board cannot take that way comes back `placement_refused` with the reason and stays pending; tell me, do not retry it some other way on your own.
+- For each revise, call `revise_proposal` with feedback specific enough to act on ("the finding holds but cites src/old/path.ts; it moved to src/new/path.ts" beats "please update"). Name each failed criterion and what would make it pass ("drop step 3, nothing measured shows the need; lead with the adapter fix"). Revising is capped at three per proposal and costs credits, so make each one count.
 Do NOT call `decide_proposals`, `accept_proposal`, `reject_proposal` or `revise_proposal` before I have said go. Verifying is yours; deciding is mine.
 
 ## After

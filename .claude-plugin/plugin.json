@@ -1,7 +1,7 @@
 {
   "name": "tekk",
   "description": "Drive your Tekk board from your coding agent: sweep the proposal inbox, blitz specs into parallel sessions, triage the board against git, write specs that can actually close, get grilled about your product so your loops audit what you care about, steer the loops themselves \u2014 what is on, what it costs, and when it runs \u2014 and give feedback on what each round was worth so the loops learn from it. Bundles the Tekk MCP server.",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "author": {
     "name": "Tekk",
     "url": "https://tekk.coach"
