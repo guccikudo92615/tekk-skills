@@ -12,7 +12,7 @@
       "name": "tekk",
       "source": "./",
       "description": "Drive your Tekk board from your coding agent: sweep the proposal inbox, blitz specs into parallel sessions, triage the board against git, write specs that can actually close, get grilled about your product so your loops audit what you care about, steer the loops themselves — what is on, what it costs, and when it runs — and give feedback on what each round was worth so the loops learn from it. Bundles the Tekk MCP server.",
-      "version": "1.4.0"
+      "version": "1.4.1"
     }
   ]
 }
