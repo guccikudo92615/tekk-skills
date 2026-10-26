@@ -4,6 +4,12 @@ description: 'Interview me about my product, then point my autonomous loops at w
 allowed-tools:
   - mcp__tekk__get_steering_brief
   - mcp__plugin_tekk_tekk__get_steering_brief
+  - mcp__tekk__steer_loop
+  - mcp__plugin_tekk_tekk__steer_loop
+  - mcp__tekk__configure_loop
+  - mcp__plugin_tekk_tekk__configure_loop
+  - mcp__tekk__set_loop
+  - mcp__plugin_tekk_tekk__set_loop
 ---
 
 Grill me, then steer my loops. My loops audit my code every night, and Tekk decides where each run looks from what changed and what the loops found before. Nothing in that knows what I am afraid of — that is what this fixes. Read where I stand FIRST, then interview me, then turn what I tell you into assignments.
