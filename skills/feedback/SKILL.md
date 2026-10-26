@@ -2,6 +2,8 @@
 name: feedback
 description: 'Close the loop after a blitz: look at what my loops found, what was built from it, what merged and what it cost, then ask me what was worth it and what was not, and turn my answers into where the loops look next. Use after a blitz has landed, when I ask how the last round went, what was worth it, which loops are earning their keep, or say a loop is too noisy, too quiet or looking in the wrong place.'
 allowed-tools:
+  - mcp__tekk__get_workspace_overview
+  - mcp__plugin_tekk_tekk__get_workspace_overview
   - mcp__tekk__list_sessions
   - mcp__plugin_tekk_tekk__list_sessions
   - mcp__tekk__fleet_status
@@ -36,7 +38,8 @@ Work out the window: it starts when the earliest session of the last blitz start
 
 - `list_sessions` (and `fleet_status` for what is still running) — which sessions ran, on which spec, and whether each finished, stalled or was abandoned.
 - `get_spec` on each — its `sourceLoop` (the loop the finding came from, or none if I wrote it), its `linkedPrs` (what merged) and its `drift` (whether a merge claimed to finish it, and whether the checklist was done).
-- `list_proposals` with `status: "accepted"` and `"rejected"` — WHICH findings I took and which I turned down. It does not carry why: its `category` is the finding's own topic, not my kind of no, and my reason is not on the row. So never infer from it whether a reject meant "wrong" or merely "not now"; where that distinction matters, ask me in the round.
+- `get_workspace_overview` once — its `loopDecisions` is the kind of no I gave each loop: per loop, over the last 90 days, how many of its findings I decided (`decided`) and how many I rejected as `wrong` (untrue), `wrongFix` (true, but the remedy was wrong) or `tooSmall` (true, not worth a card). A loop with none of those rejections is left out, so a missing loop means none were rejected that way, not that I decided nothing; take its decided count from this cycle's `list_proposals` instead. An entry named `goal` holds findings that came from no loop, so never report it as a loop. These are MY recorded verdicts, so use them rather than asking me to remember; they span 90 days and every project, not just this cycle, so say so when you quote them.
+- `list_proposals` with `status: "accepted"` and `"rejected"` — WHICH of this cycle's findings I took and which I turned down, each with `decision`: my own last accept or reject, the kind of no (`wrong`, `wrong-fix`, `not-now`, `already-done`, `too-small`…) and the reason I typed. Quote that reason back rather than asking me for it, and ask about a specific reject only when its `decision.note` is empty. Never read the kind of no off the row's `category`: that is the finding's own topic.
 - `list_runs` per loop that appears, with `limit: 100`, and `spend_report` for the same window per loop — how often each ran, how many runs came back empty, and what it cost. `list_runs` returns the newest runs and takes no date filter, so if even its oldest row falls inside the window the count is partial: say "at least N runs", and draw no conclusion about frequency or empty rate from it. `spend_report` covers the whole window, so cost is the complete figure.
 - `get_steering_brief` once — what already stands out about the loops, and any assignments still waiting (`waiting`). `list_steered` shows the waiting queue if you need it on its own.
 
@@ -46,7 +49,7 @@ If there was no blitz to look back on, say so in one line and use the last 14 da
 
 One short block per loop that produced anything, in order of what it cost:
 
-> **security** — 4 findings, 3 accepted, 2 built and merged, 1 session stalled. 9 runs, 5 empty. ~$3.10.
+> **security** — 4 findings, 3 accepted, 2 built and merged, 1 session stalled. 9 runs, 5 empty. ~$3.10. Over 90 days: 2 of 11 decided were rejected as wrong.
 
 Then two or three lines in your own words on what stands out: a loop whose findings all merged, a loop whose work all stalled, a loop that costs a lot and finds little, a loop that found nothing in an area I keep shipping into. Not a status table — I can read a table on the Loops page.
 
