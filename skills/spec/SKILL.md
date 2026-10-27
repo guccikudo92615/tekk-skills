@@ -48,6 +48,18 @@ The board enforces this: a checkbox that reads as a human decision, a waiting pe
 - `## Acceptance` — prose bullets. A test, a command, an observable outcome.
 - `## Out of scope` — optional, but it is where a closed duplicate's unique intent survives.
 
+## Pictures
+
+Writing is the cheap part of a session; reading the code was the expensive part. So be generous with a clear Summary and, when it helps, add **one picture**. Tekk draws certain fenced blocks in the body; agents still read the plain text. Put the picture right under the Summary, where the first screen of the spec is read. Pick it by what the work is:
+
+- **Something reaches what it should not** (data exposure, a missing gate) → ` ```path ` with `{"steps":[{"label","detail","ref"}],"cutAfter":<index of the step after which the fix cuts>,"cutLabel","end":"danger"}`. A step may be a plain string.
+- **What lives where in one large file** → ` ```filemap ` with `{"total","unit":"lines","segments":[{"label","from","to","tone":"hot|done|muted"}]}`.
+- **A measured improvement** (speed, cost, size) → ` ```beforeafter ` with `{"rows":[{"label","now","target","unit"}]}`.
+- **How modules or steps connect** → a small ` ```mermaid ` flowchart.
+- **Numbers that are the argument** → ` ```stats ` with `{"items":[{"value","label","source"}]}`, at most 4. This may sit beside the one picture.
+
+Rules: at most one picture and one stats row per spec. Every number in a picture also appears in `## Sources` or `## Problem / Context` with its locator. No picture is better than a decorative one. A picture that describes how things are today goes stale like any other fact; label it with what it measured. A fence the board cannot draw is returned as a warning naming it, and shows as plain code until fixed. When a spec is built from a proposal, copy the proposal's picture across as written rather than drawing a new one.
+
 ## Carry what cannot be re-derived
 
 The spec is the durable record of the session that produced it. Write it so that session could be deleted and nothing would be lost. Build steps are cheap to reconstruct from the code; the document you were handed, the option you rejected and why, and a measurement taken against production on a given day are not. Spend the length there, not on restating what the code already says.
