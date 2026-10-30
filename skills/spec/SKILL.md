@@ -33,8 +33,15 @@ Completion counts **every** `- [ ]` in the body, `## Acceptance` included. A box
 - **Human decisions** — "review with the team", "decide the shape", "get approval". Make the decision *before* writing and record it as a stated fact under `## Decisions`, or split it into its own spec. If a decision is still open, the spec is not ready.
 - **Waiting periods** — "watch one week of runs", "monitor for false positives", "observe after deploy". An agent cannot wait a week. If it genuinely needs measuring later, that is a follow-up spec.
 - **Out-of-band work** — anything done in a dashboard, another tool, or by another person.
+- **Steps that are not building** — a box is something the coding agent finishes by changing the code. These are not:
+  - *Running a check*: "Run `npm test` and `npm run build`", "run the eval", "run the experiment". Say what must pass under `## Acceptance`, in prose.
+  - *Verifying*: "verify the panel shows the label", "confirm it still works", "smoke-test the flow". That is an acceptance criterion, in prose.
+  - *Researching*: "measure how often it fires", "investigate the user data", "look into why runs stall". Put what you already know under `## Findings`; research still to be done is its own spec, with no checkboxes.
+  - *Operating production*: "apply the migration to prod", "run the backfill against production". Say it in prose in the PR's pre-flight, not as a box in the spec.
 
-The board enforces this: a checkbox that reads as a human decision, a waiting period, or work after the merge is rejected with the offending line named, and so is any checkbox under `## Acceptance`. Write `## Acceptance` as **prose bullets (`-`), never checkboxes**, so criteria describe how to verify without gating completion. The cautionary case is real: a spec with four boxes, two of them "review with the team" and "watch one week", sat unstarted for a month while its work ran in production.
+  Building those things is still a step: "add a test that…", "write the eval script…", "add a check that…". So are "check the budget before calling" and "ensure the guard runs first" — ordinary code.
+
+The board enforces this: a checkbox that reads as a human decision, a waiting period, work after the merge, or a step that runs, verifies, researches or operates production is rejected with the offending line named and where it belongs instead, and so is any checkbox under `## Acceptance`. Write `## Acceptance` as **prose bullets (`-`), never checkboxes**, so criteria describe how to verify without gating completion. The cautionary case is real: a spec with four boxes, two of them "review with the team" and "watch one week", sat unstarted for a month while its work ran in production.
 
 ## Shape
 
