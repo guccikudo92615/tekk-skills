@@ -4,15 +4,19 @@ description: 'Interview me about my product, then point my autonomous loops at w
 allowed-tools:
   - mcp__tekk__get_steering_brief
   - mcp__plugin_tekk_tekk__get_steering_brief
+  - mcp__tekk__get_night_plan
+  - mcp__plugin_tekk_tekk__get_night_plan
   - mcp__tekk__steer_loop
   - mcp__plugin_tekk_tekk__steer_loop
   - mcp__tekk__configure_loop
   - mcp__plugin_tekk_tekk__configure_loop
   - mcp__tekk__set_loop
   - mcp__plugin_tekk_tekk__set_loop
+  - mcp__tekk__cancel_steered
+  - mcp__plugin_tekk_tekk__cancel_steered
 ---
 
-Grill me, then steer my loops. My loops audit my code every night, and Tekk decides where each run looks from what changed and what the loops found before. Nothing in that knows what I am afraid of — that is what this fixes. Read where I stand FIRST, then interview me, then turn what I tell you into assignments.
+Grill me, then steer my loops. My loops audit my code every night. Each evening Tekk writes a brief of what I built this week and where it thinks the product is heading, ends it with the few questions worth looking at first, and hands those questions to the loops that fit them. That brief can misread where I am going, and nothing in it knows what I am afraid of. That is what this fixes. Read where I stand FIRST, check Tekk's understanding with me, then interview me, then turn what I tell you into assignments.
 
 **What you write is an assignment, the same thing Tekk writes for itself before every run:** an area (a capability, by name), why it matters, and the hypotheses the run should confirm or refute. A steered assignment replaces Tekk's own for that loop on its next background wake, runs once, and then Tekk takes over again and reads what came back like any other run's results. Nothing is stored beyond that run.
 
@@ -20,7 +24,9 @@ Grill me, then steer my loops. My loops audit my code every night, and Tekk deci
 
 ## 1. Read where I stand
 
-Call `get_steering_brief`. One call; everything you need is in it. Do NOT also call `list_loops`, `list_runs` or `list_proposals` — the brief has already done that comparing, and re-reading the roster is how you end up reciting it.
+Call `get_night_plan` and `get_steering_brief`. Two calls; everything you need is in them. Do NOT also call `list_loops`, `list_runs` or `list_proposals` — they have already done that comparing, and re-reading the roster is how you end up reciting it.
+
+`get_night_plan` is tonight: Tekk's brief (what it thinks I built and where I am heading, ending in the questions it is sending loops at), each assignment it wrote with its id, and every loop sitting the night out with why.
 
 It gives you `standsOut` (what is anomalous, already ordered), then per-loop detail: what each loop does, the question it would ask me, its settings, whether its schedule can be changed at all, the assignment its last run worked on with what came back (`lastAssignment`), and any assignments I already wrote that are still waiting (`waiting`). Read `lastAssignment` before you propose sending a loop anywhere: one that just looked at an area does not need sending there again, and a hypothesis it refuted is not worth asking again without new evidence.
 
@@ -28,13 +34,23 @@ If you were handed here from `/feedback`, you already have what the last cycle t
 
 An EMPTY `standsOut` is a real answer, not a failed read. It means nothing is obviously wrong, and the interview is then about where I am going rather than what is stuck.
 
-## 2. Tell me what stands out
+## 2. Check what Tekk thinks I am building
 
-Two or three things, in your own words, before you ask me anything. Not a status table — I can read a table on the Loops page. If assignments I wrote earlier are still waiting, say so: they run first.
+Before anything else, read the brief back to me in three or four lines, in my words: what it thinks I built, where it thinks I am going, and the questions it is sending loops at tonight. Then ask me one thing: is that right?
+
+- **It is wrong about where I am going.** The brief is written fresh every day from my own steers, then my pull requests (merged and open), then my open specs, so a correction in chat lasts one night. The lasting fix is what it read. Find where it took the wrong direction from, most often an older spec whose Why I have since changed my mind about, and offer to correct that Why with today's date, or to write the spec that says where I am going (`/spec`). A steer fixes one night; a spec fixes every night after it.
+- **An assignment is wrong.** Take it back with `cancel_steered` and its id, or write my own for that loop: an assignment I wrote runs first, and Tekk's plan leaves that loop alone that night.
+- **It is right.** Say so in one line and move on. Do not re-ask what the brief already answers.
+
+If there is no plan yet, or the night is held or failed, say which in one line, and why, and move on.
+
+## 3. Tell me what stands out
+
+Two or three things, in your own words, before the interview starts. Not a status table — I can read a table on the Loops page. If assignments I wrote earlier are still waiting, say so: they run first.
 
 **If nothing stands out, say so and move on.** `standsOut` comes back empty on a healthy project, and that is information: nothing is stuck, so the interview is about where I am GOING rather than what is broken. Say "nothing is obviously wrong" and go straight to the dig, proposing areas from what I am building rather than from a problem. Do not go hunting through the loop list for something to worry about — manufacturing a concern to fill this section is worse than an honest "all quiet".
 
-## 3. Round one is the dig
+## 4. Round one is the dig
 
 Do not ask me how deep I want to go in the abstract. Propose it, from what you just read, with your recommendation attached:
 
@@ -42,7 +58,7 @@ Do not ask me how deep I want to go in the abstract. Propose it, from what you j
 
 I redirect, add a loop you skipped, or say go. Depth gets settled here too, against something concrete.
 
-## 4. Then grill me in rounds
+## 5. Then grill me in rounds
 
 Ask the whole **frontier** — every question that is answerable NOW, given what I have already told you — in one numbered round. Then stop and wait.
 
@@ -62,7 +78,7 @@ Every question carries a recommendation. Guessing and being corrected is faster 
 
 **Use a loop's question where it fits, and change it freely.** Merge two when my product does not respect the boundary between them ("a failed checkout nobody notices" is payments and reliability at once). Reword it in the words I have been using. Skip it when the evidence does not point there. Most of them will go unused in any one conversation, and that is correct.
 
-## 5. Find facts yourself — never ask me for one
+## 6. Find facts yourself — never ask me for one
 
 Anything you could check, check. Whether analytics is genuinely wired up, whether a quiet loop is quiet because its data source is disconnected, whether the code I just described the way I remember it still looks like that. Send a sub-agent when it is slow.
 
@@ -70,7 +86,7 @@ Anything you could check, check. Whether analytics is genuinely wired up, whethe
 
 Asking me to go and look something up is the one thing that makes this feel like paperwork.
 
-## 6. Sharpen what I say
+## 7. Sharpen what I say
 
 A vague answer written down verbatim aims nothing. When a word is doing too much work, name it and make me choose:
 
@@ -78,7 +94,7 @@ A vague answer written down verbatim aims nothing. When a word is doing too much
 
 Push once, take my answer, move on. You are sharpening my thinking, not cross-examining me.
 
-## 7. Make me cut, then show me the assignments
+## 8. Make me cut, then show me the assignments
 
 An assignment naming nine concerns aims nothing — it reads as "care about everything", which is what the loops already do. Make me rank and drop the bottom half.
 
@@ -103,7 +119,7 @@ Most loops end an interview with no assignment at all. That is the normal outcom
 
 ## What a steered assignment is and is not
 
-It replaces Tekk's own assignment for one run of one loop, at that loop's next background wake. It never starts on the spot, never stops a loop, never switches one off, and does not lower the bar — a weak finding in the area I named is still a weak finding. If I want a loop to stop running, that is `configure_loop`, and you should say so rather than writing an assignment that sounds like it.
+It replaces Tekk's own assignment for one run of one loop, at that loop's next background wake; on a night Tekk has planned, mine runs first and the plan leaves that loop alone. It never starts on the spot, never stops a loop, never switches one off, and does not lower the bar — a weak finding in the area I named is still a weak finding. If I want a loop to stop running, that is `configure_loop`, and you should say so rather than writing an assignment that sounds like it.
 
 It does not persist. Once its run is done, Tekk aims that loop again from the evidence, including what my run found. If I want the same area looked at again later, I steer again.
 
