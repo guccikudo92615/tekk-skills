@@ -68,6 +68,8 @@ The spec is the durable record of the session that produced it. Write it so that
 
 A merged PR carrying `Closes TEK-n` in its **body** is the only thing that closes a spec, and only over a finished checklist. Both halves are the authoring agent's job in the same PR: tick what you actually finished, and write the line.
 
+A PR that does only part of a spec's work says `Part of TEK-n` instead (`Refs`, `References`, `Contributes to` and `Toward` work too). It is linked as contributing — real work on the spec, shown as "Part of" — and it never closes the spec. A PR from a branch registered for the spec with `start_session` counts the same way without saying anything. When one PR refers to a spec several ways, the strongest wins: closing, then contributing, then mention.
+
 A PR that merely *mentions* the id links it for display and moves nothing — deliberately, since a mention is often a cross-reference. A branch named after a spec links the PR and closes nothing.
 
 Half-finished is fine and honest: tick what you did, still write `Closes`, and the spec lands as incomplete with the remainder visible.

@@ -45,7 +45,7 @@ Say which tier you used. Falling back is fine and silent — do not treat a miss
 The work prompt, whichever tier: "Implement Tekk spec TEK-n end to end (use get_spec TEK-n for the detail). Open a PR whose body includes 'Closes TEK-n'."
 
 ## 4. Register what you started
-For every session you actually OPENED or QUEUED, call `start_session` with `spec`, `spawner: "claude-session"`, `externalRef` set to the new session's id or URL, and `branch`. An unregistered session is invisible to `fleet_status`, which is the one read that answers "what are my agents doing" — and an invisible fleet is worse than a list I paste myself. Skip this for tier 3: I have not opened anything yet.
+For every session you actually OPENED or QUEUED, call `start_session` with `spec`, `spawner: "claude-session"`, `externalRef` set to the new session's id or URL, and `branch`. An unregistered session is invisible to `fleet_status`, which is the one read that answers "what are my agents doing" — and an invisible fleet is worse than a list I paste myself. The `branch` matters twice: a PR opened from it is linked to the spec as contributing work even if its text never names the spec, so pass the branch the session will really push. Skip this for tier 3: I have not opened anything yet.
 
 ## Pending proposals
 A pending proposal is not work yet — accepting it is my call, not yours. Do NOT call `accept_proposal` or `decide_proposals` on your own. Tell me which pending findings look parallel-safe and offer to accept and launch them in one step; if I say go, use `decide_proposals` for the batch.
