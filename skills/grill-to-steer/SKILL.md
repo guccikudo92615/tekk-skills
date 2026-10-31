@@ -16,7 +16,7 @@ allowed-tools:
   - mcp__plugin_tekk_tekk__cancel_steered
 ---
 
-Grill me, then steer my loops. My loops audit my code every night. Each evening Tekk writes a brief of what I built this week and where it thinks the product is heading, ends it with the few questions worth looking at first, and hands those questions to the loops that fit them. That brief can misread where I am going, and nothing in it knows what I am afraid of. That is what this fixes. Read where I stand FIRST, check Tekk's understanding with me, then interview me, then turn what I tell you into assignments.
+Grill me, then steer my loops. My loops audit my code every night. Each evening Tekk writes a brief of what I changed since yesterday, what I built this week and where it thinks the product is heading, then picks the loops that work calls for and hands each one the intent behind it: why the work exists and what it promises, in a few sentences, with the pull requests or specs it read that from. That brief can misread where I am going, and nothing in it knows what I am afraid of. That is what this fixes. Read where I stand FIRST, check Tekk's understanding with me, then interview me, then turn what I tell you into assignments.
 
 **What you write is an assignment, the same thing Tekk writes for itself before every run:** an area (a capability, by name), why it matters, and the hypotheses the run should confirm or refute. A steered assignment replaces Tekk's own for that loop on its next background wake, runs once, and then Tekk takes over again and reads what came back like any other run's results. Nothing is stored beyond that run.
 
@@ -26,7 +26,7 @@ Grill me, then steer my loops. My loops audit my code every night. Each evening 
 
 Call `get_night_plan` and `get_steering_brief`. Two calls; everything you need is in them. Do NOT also call `list_loops`, `list_runs` or `list_proposals` — they have already done that comparing, and re-reading the roster is how you end up reciting it.
 
-`get_night_plan` is tonight: Tekk's brief (what it thinks I built and where I am heading, ending in the questions it is sending loops at), each assignment it wrote with its id, and every loop sitting the night out with why.
+`get_night_plan` is tonight: Tekk's brief (what it thinks I changed today, what I built this week and where I am heading), each pick it made with the intent it handed that loop and its id, whether the intent names its sources, and every loop sitting the night out with why.
 
 It gives you `standsOut` (what is anomalous, already ordered), then per-loop detail: what each loop does, the question it would ask me, its settings, whether its schedule can be changed at all, the assignment its last run worked on with what came back (`lastAssignment`), and any assignments I already wrote that are still waiting (`waiting`). Read `lastAssignment` before you propose sending a loop anywhere: one that just looked at an area does not need sending there again, and a hypothesis it refuted is not worth asking again without new evidence.
 
@@ -36,7 +36,7 @@ An EMPTY `standsOut` is a real answer, not a failed read. It means nothing is ob
 
 ## 2. Check what Tekk thinks I am building
 
-Before anything else, read the brief back to me in three or four lines, in my words: what it thinks I built, where it thinks I am going, and the questions it is sending loops at tonight. Then ask me one thing: is that right?
+Before anything else, read the brief back to me in three or four lines, in my words: what it thinks I did today, what it thinks I built this week, where it thinks I am going, and which loops it is sending tonight with what intent. Then ask me one thing: is that right? A pick whose intent names no source is the first thing to question.
 
 - **It is wrong about where I am going.** The brief is written fresh every day from my own steers, then my pull requests (merged and open), then my open specs, so a correction in chat lasts one night. The lasting fix is what it read. Find where it took the wrong direction from, most often an older spec whose Why I have since changed my mind about, and offer to correct that Why with today's date, or to write the spec that says where I am going (`/spec`). A steer fixes one night; a spec fixes every night after it.
 - **An assignment is wrong.** Take it back with `cancel_steered` and its id, or write my own for that loop: an assignment I wrote runs first, and Tekk's plan leaves that loop alone that night.
