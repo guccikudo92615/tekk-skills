@@ -29,7 +29,7 @@ A spec's status is a **claim, not a fact**. Nobody lies on purpose. An agent edi
 1. **Git is the truth; the board is a claim.** Never resolve a spec from its status, its title, or its drift verdict. Open the files and check.
 2. **file:line or it did not happen.** Every verdict carries a locator someone else can check. "Looks done" is a guess wearing a conclusion's clothes.
 3. **A stale path is not a dead spec.** A moved file reads exactly like a deleted one. Search by symbol before concluding anything is gone — closing a spec because someone moved a file discards a real, still-unfixed bug.
-4. **Status corrections are yours. Killing work is the user's.** Moving a never-started spec out of in-progress is a factual repair; make it. Closing a spec as obsolete, duplicate or superseded ends someone's intent — propose it with your reasoning and wait.
+4. **Status corrections are yours. Killing work is the user's.** Moving a never-started spec out of in-progress is a factual repair; make it. Archiving a spec as obsolete or superseded, or folding a duplicate, ends someone's intent — propose it with your reasoning and wait.
 
 ## Order of work
 
@@ -52,9 +52,9 @@ Each step narrows the next.
 
 **One job, N specs.** Several loops independently proposing the same work produces sibling specs that each look reasonable. The tell: no pattern for the thing exists in the repo yet, so whoever ships first sets the convention for all of them — which makes it one PR by nature. Propose merging into the broadest, carrying across every specific file, line and correction from each. A merge suggestion, once the user agrees, is applied with one `decide_merge_suggestion` call and does the carrying for you: the survivor gains an `## Absorbed` section and the folded spec points at it.
 
-**Premise gone.** The spec targets a model the product no longer has. Check the schema and the route, not the prose. Propose closing, and record what a fresh spec would need to be grounded against.
+**Premise gone.** The spec targets a model the product no longer has. Check the schema and the route, not the prose. Propose archiving it, with a reason that records what a fresh spec would need to be grounded against.
 
-**Junk.** No problem statement, no build order, nothing buildable. Propose closing; a title is not a spec.
+**Junk.** No problem statement, no build order, nothing buildable. Propose archiving it; a title is not a spec.
 
 **Checkboxes nobody can tick.** Completion counts **every** `- [ ]` in the body, `## Acceptance` included. A box requiring a human decision, a waiting period, or work in someone else's dashboard blocks completion forever — a spec carrying only acceptance-criteria checkboxes can never close even when fully built. Convert acceptance to prose bullets; move human decisions into `## Decisions` as stated facts.
 
@@ -75,6 +75,12 @@ The blessed path is a merged PR carrying `Closes TEK-n` over a finished checklis
 Marking a spec completed by hand is ungated and exists for **reconciliation** — a spec whose work demonstrably shipped under someone else's PR. Every hand-close records in the body why the automatic path did not apply, with the locators proving the work exists. A close whose reasoning is not written down is indistinguishable next month from a mistake.
 
 Write that record as a table of *what the spec asked for* → *where it lives now*, and name every deviation. A reader who only sees "completed" has to re-derive all of it from scratch.
+
+## Dropping a spec
+
+Work nobody is going to build is **archived**, never completed and rarely deleted. `completed` says the work shipped: it counts as done, rolls up into the parent and unblocks whatever depends on it. `delete_spec` erases the card and its history. `archive_spec` takes the spec off the board and keeps it, with a one-line `reason` the person can read later; for a spec a loop raised, that reason also reaches the loop's journal, so the loop stops raising it.
+
+An archived spec is in no open list or count, is never counted as shipped, and is left out of its parent's roll-up, so archiving the last open sub-task lets the parent complete on what really shipped. A spec that depends on an archived one stays blocked: say so in the report, and remove the dependency if the dependent is still wanted. `list_specs` with `status: "archived"` lists them, and `unarchive_spec` puts one back as `todo`. Archive a parent with `withSubtasks: true` to take its open sub-tasks with it.
 
 ## Gotchas
 
