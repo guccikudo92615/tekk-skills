@@ -1,6 +1,6 @@
 ---
 name: night-shift
-description: 'Set up a nightly run that works my Tekk board while I sleep: triage the board, build the most important specs as pull requests in cloud coding sessions, watch them, and leave a morning report of what is ready to merge. Run it once to set up the schedule; the schedule then fires it every night with nobody watching. Use when I want work done "every night", "while I sleep", "overnight", or to "wake up to PRs".'
+description: 'Set up a nightly run that works my Tekk board while I sleep: triage the board, build the most important specs as pull requests in cloud coding sessions, watch them, and leave a morning report of what is ready to merge. Run it once to set up the schedule and choose the lineup (which loops and epics go first, sized into one-session specs and multi-session trees); the schedule then fires it every night with nobody watching. Run it again to change the lineup. Use when I want work done "every night", "while I sleep", "overnight", or to "wake up to PRs".'
 allowed-tools:
   - mcp__tekk__get_workspace_overview
   - mcp__plugin_tekk_tekk__get_workspace_overview
@@ -28,15 +28,16 @@ allowed-tools:
   - mcp__plugin_tekk_tekk__update_spec_status
 ---
 
-Night shift — while I sleep, triage my board, build the most important specs as pull requests, watch them, and leave me a morning report. My work is ALREADY planned on the board; you pick from it, you do not re-plan it.
+Night shift — while I sleep, triage my board, build the specs I lined up as pull requests, watch them, and leave me a morning report. My work is ALREADY planned on the board; you pick from it in the order my lineup says, you do not re-plan it.
 
 ## Which mode you are in
 
 Read the message that started you.
 - **Night-run mode** — it says it was fired by a schedule (a scheduled task, a nightly run, a wake-up you set yourself). Nobody is watching. Go to **The night run**.
-- **Setup mode** — anything else: I typed the command. Go to **Setup**.
+- **Lineup mode** — I typed the command, or answered a morning report to change what runs, and a night-shift schedule already exists — a recurring scheduled task whose instruction is a night shift; list your scheduled tasks to check before you pick a mode. Go to **The lineup**, then offer to change the time or the cap in the same round.
+- **Setup mode** — I typed the command and no night-shift schedule exists yet. Go to **Setup**.
 
-Both modes obey **The hard limits** and **The skip list** below. They are the same rules in both, which is why this is one skill.
+Every mode obeys **The hard limits** and **The skip list** below. They are the same rules in each, which is why this is one skill.
 
 ## The hard limits
 
@@ -61,19 +62,41 @@ Never launch these, even when they rank first. Each goes in the report with the 
 
 ## Setup
 
-Ask me three things, in one round, each with a recommended answer:
+Ask me two things, in one round, each with a recommended answer:
 1. **When** — a time and my time zone. Recommend a time after I usually stop working, so tonight's specs include today's.
 2. **How many** — the cap N, default 4, at most 10. Tell me plainly what it costs: in testing, one small spec cost roughly $1–2 of my coding-agent plan's usage (bigger specs cost more), so N specs a night is roughly N times that, counted against my plan's usage limits, not against Tekk credits. Point me at where my coding agent shows its usage so I can check my own numbers after the first night.
-3. **Which work** — the whole board, or one epic or one parent spec. Read the board (`list_specs`, and `list_epics` if I name an epic) so you can offer real names, not ask me to type ids.
 
-Then make the schedule with the best tool you actually have. Describe what you find by what it does, never by its name.
-- **First, look for an existing night-shift schedule** — a recurring scheduled task whose instruction is a night shift. If one exists, change it (time, cap, scope) instead of creating a second. Two schedules would launch the same specs twice in one night.
+Then build **The lineup** with me — it replaces asking me which part of the board to work on — and make the schedule with the best tool you actually have. Describe what you find by what it does, never by its name.
+- **First, look for an existing night-shift schedule** — a recurring scheduled task whose instruction is a night shift. If one exists, change it (time, cap, lineup) instead of creating a second. Two schedules would launch the same specs twice in one night.
 - **You have a tool that creates a recurring scheduled task.** Prefer a task that starts a fresh session each night, but only if that task can carry the Tekk connection with it — try it, and read the answer. If it cannot (some accounts refuse connections on scheduled tasks), bind the task to THIS session instead, so each night wakes the session that already holds the Tekk tools, and tell me in these words: "don't archive this session — it is the one the schedule wakes."
 - **You have no scheduling tool.** Say so in one line, and offer to run tonight's chain once, now, instead.
 
-The scheduled task's instruction is the night run, written so it stands alone: it says it was fired by a schedule, it names my cap, my scope and my workspace, and it tells the session to run this skill's night-run mode. If this skill may not be installed where the task fires, paste the night run's steps, the hard limits and the skip list into the instruction itself.
+The scheduled task's instruction is the night run, written so it stands alone: it says it was fired by a schedule, it names my cap and my workspace, it carries the lineup under a `## Lineup` heading, and it tells the session to run this skill's night-run mode. If this skill may not be installed where the task fires, paste the night run's steps, the hard limits and the skip list into the instruction itself.
 
-End setup by telling me: when it fires next (in my time zone), the cap, the scope, which binding you chose and why, and how to stop it.
+End setup by telling me: when it fires next (in my time zone), the cap, the lineup, which binding you chose and why, and how to stop it.
+
+## The lineup
+
+The lineup is my ordered list of what the nights work on: groups of specs, in the order I want them built. It lives in the scheduled task's instruction under a `## Lineup` heading, so every night reads the same one until I change it. Without one, a night takes whatever ranks highest on the whole board, which to me looks random; the lineup is how I choose instead.
+
+Build it read-only — you change nothing on the board here:
+1. **Read the candidates.** `list_specs` (`limit: 100`, paging with `offset` while `hasMore`), `fleet_status`, and `plan_batch` with `limit: 10`. Leave out the skip list and every spec with a live session, and count what you left out, by reason, in one line.
+2. **Group by where the work came from.** A spec's `sourceLoop` names the loop that found it (security, payments, testing and so on): each loop is a group. A spec with no `sourceLoop` is one I wrote: group those by epic, or by parent spec, or by the area their `touches` point at. A parent spec with open sub-tasks is a group of its own.
+3. **Size every spec:**
+   - **One session** — a leaf spec with a focused code area and a short build order: one child, one PR, one night.
+   - **Several sessions** — a parent whose sub-tasks are open. Its ready sub-tasks run side by side (`plan_batch` with `parentSpec`) and each takes a slot of the cap; sub-tasks that depend on unfinished ones wait for a later night. Say how many nights the tree needs at my cap.
+   - **Too big for one session** — a leaf spec whose build order or code area spans several systems, the kind one session would leave half done. You never split a spec on your own: recommend splitting it into sub-tasks with `/spec`, and leave it out of the lineup until it is split.
+   - **No declared code area** — any size. A spec without `touches` overlaps everything, so a night can launch it only when it tops the batch. Mark it, and recommend declaring its area so it can run beside others.
+4. **Show what runs together.** From `plan_batch`: which specs share a night side by side, and which are deferred behind which overlap, so I can see why two things I want cannot both go tonight.
+
+Show me one block per group, largest first: its name, how many specs, how many are one-session and ready now, its several-session trees with their night count, and its too-big specs — one line per spec, title and size, not the body. Then ask me in one round, each with a recommended answer:
+- **Which groups, in what order.** Recommend from priority, then bugs touching money, security or data correctness, then what is ready tonight. A group can also be named specs, if I want exactly those.
+- **When the lineup runs dry** — fill the rest of the cap from the whole board by priority (recommend this, so a night is never half empty), or leave the slots empty.
+- **Each too-big spec in a group I chose** — split it now with `/spec`, or leave it out.
+
+Write my answer into the schedule's instruction as `## Lineup`: the groups in order, each named by its loop, epic or parent spec, and the when-dry rule. Name groups, not spec ids, unless I picked named specs: a group named by its loop picks up what that loop finds tomorrow, while a frozen list of ids goes stale in a week. If you cannot change the schedule's instruction from this session (some tools let only the session the schedule wakes edit it), say so, and give me the `## Lineup` block to paste there or tell me to run `/night-shift` in that session.
+
+Finish lineup mode by telling me what tonight would launch with this lineup, slot by slot, and what waits for a later night.
 
 ## The night run
 
@@ -87,14 +110,17 @@ Nobody is watching. Never stop to ask a question and never wait for approval: ma
 
 ### 2. Triage — lite, under triage's ground rules
 Git is the truth, the board is a claim, every verdict carries a file:line, and a moved file is not a dead spec.
-- Read the drift and shippedUnclosed blocks, then `list_specs` with `limit: 100`, paging with `offset` while the response says `hasMore` (inside my scope only).
-- Spend your attention on tonight's likely candidates and on drift rows — not on the whole board.
+- Read the drift and shippedUnclosed blocks, then `list_specs` with `limit: 100`, paging with `offset` while the response says `hasMore`.
+- Spend your attention on the lineup's groups, tonight's likely candidates and drift rows — not on the whole board.
 - **Repair facts:** a spec marked in-progress with nothing started (no PR, no ticked box, no live session) → back to `todo` with `update_spec_status`. That is the only kind of status change you make here.
 - **Report everything else** with file:line evidence and a recommended action: looks shipped, duplicate, premise gone, junk, checkboxes nobody can tick. That spec is not launched tonight.
 
 ### 3. Pick
-- `plan_batch` with `limit: 10` (scoped to my epic or parent spec if I chose one) is the authority on what can run together. Never pick two specs it would not co-schedule, and never override it.
-- Choose up to N from its batch. Prefer higher priority; then bugs touching money, security or data correctness; then small, self-contained specs that can finish in one session.
+- `plan_batch` with `limit: 10` is the authority on what can run together. Never pick two specs it would not co-schedule, and never override it.
+- **Fill the slots in lineup order.** Read the `## Lineup` in your instruction. Take the first group's specs that are in the batch, by priority; then the next group's; and so on, up to N. A group named by an epic or a parent spec has its own call — `plan_batch` with that `epic` or `parentSpec` — and a parent's ready sub-tasks each take a slot. A batch of ten often holds none of a group's specs: they sit in its deferred list, held by the size limit or by an overlap with a spec outside the lineup. Take one from there only if it declares its code area and that area overlaps neither anything you are launching, from any call, nor a spec with a running session. When the lineup runs dry, follow its when-dry rule. A group that matches nothing on the board (a renamed loop, a finished epic) is not a dry group: report it by name as one I need to fix.
+- **A scope instead of a lineup.** A schedule set up before lineups existed names a scope — one epic or one parent spec — and no `## Lineup`. Treat that scope as a one-group lineup whose when-dry rule is to leave the slots empty: call `plan_batch` with that `epic` or `parentSpec`, and never launch from outside it.
+- **No lineup and no scope in your instruction:** choose up to N from the batch. Prefer higher priority; then bugs touching money, security or data correctness; then small, self-contained specs that can finish in one session. Say in the report that you picked without a lineup, and that `/night-shift` sets one.
+- **A too-big spec** — a leaf whose build order or code area spans several systems — is not launched even when the lineup names its group. Report it as one to split with `/spec`.
 - Drop everything on **The skip list**, and say why in the report.
 - **A skipped spec can hold the whole batch.** A spec that declares no code area overlaps everything, so if it ranks first the batch may come back with it alone. When skipping leaves you under N, walk the batch's deferred list in order and take a spec only if it declares its code area and that area overlaps neither a spec you are launching nor a spec with a running session. Never take a deferred spec with no declared area this way. Name the skipped spec that held the batch in the report, and recommend declaring its code area or taking it off the board, or the same night repeats tomorrow.
 - For each pick: `get_spec` for the full body, then search the code to confirm the problem still exists. A problem already fixed is a triage finding, not a launch.
@@ -139,6 +165,7 @@ End with the report as your final message, and send it as a push notification to
 - **Status repairs made** — what you moved back to `todo` and why.
 - **Skipped tonight** — each skipped spec and the reason, from the skip list or from the batch.
 - **Waiting on you** — notable pending proposals (`list_proposals`), named, not decided.
+- **Tomorrow's lineup** — the lineup's groups in order, one line each: what is ready in it for tomorrow, and which several-session trees moved a wave forward tonight. Name any group that ran dry, any group that matched nothing on the board, and any loop that raised new work today but is not in the lineup. End with: "answer here or run `/night-shift` to change the lineup."
 - **The board** — `fleet_status` counts.
 
 Never say a PR is ready when its checks are red, and never call a child finished that is still running. An honest "two of four opened PRs, one is red" is the report I need.
