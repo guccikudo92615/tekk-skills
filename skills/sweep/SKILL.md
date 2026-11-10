@@ -93,6 +93,7 @@ If I say go:
   - Cite only lines you read on the current default branch. Tekk checks every code and absence citation against a fresh checkout and stores the cited lines as the file has them.
   - It answers in the same call. A refused revision names each problem and leaves the proposal unchanged; fix them and call again.
   - No model runs and no credits are spent. Revising is still capped at three per proposal.
+  - First check your own tool list: if `revise_proposal` shows no `revision` parameter, your connection is older than it. Stop and tell me to reconnect. Never send the feedback alone in place of a revision you wrote, because that quietly becomes a paid redraft.
   - Leave `revision` out only when you have no rewrite in hand. Tekk then redrafts from your feedback on its own model, in the background, and that costs credits.
 Do NOT call `decide_proposals`, `accept_proposal`, `reject_proposal` or `revise_proposal` before I have said go. Verifying is yours; deciding is mine.
 
