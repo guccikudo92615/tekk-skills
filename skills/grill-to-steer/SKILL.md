@@ -30,7 +30,7 @@ Call `get_steering_brief` and `list_loop_matrix`. Two calls; everything you need
 
 `list_loop_matrix` is the plain picture: which loops are on in each project, when each last ran and how that ended, what is waiting on me, and how often each is due.
 
-If you were handed here from `/feedback`, you already have what the last cycle taught: which loops' work was worth it, which was too small or wrong, and what nobody looked at. Start from that rather than asking it again.
+If you were handed here from `/retro`, you already have what the last cycle taught: which loops' work was worth it, which was too small or wrong, and what nobody looked at. Start from that rather than asking it again.
 
 An EMPTY `standsOut` is a real answer, not a failed read. It means nothing is obviously wrong, and the interview is then about where I am going rather than what is stuck.
 
@@ -39,7 +39,7 @@ An EMPTY `standsOut` is a real answer, not a failed read. It means nothing is ob
 Before anything else, tell me in two or three lines which loops are on, which ran lately and what they last looked at, and which are due next. Then ask me one thing: is that the set I want working on my product right now?
 
 - **A loop is on that I do not care about, or off that I do.** That is `configure_loop`, owner-only. Offer it; do not do it unasked.
-- **A loop keeps looking at the wrong thing.** That is what the interview below fixes with an assignment of my own. If where I am going has changed, the lasting fix is a spec that says so (`/spec`): an assignment fixes one run, a spec every run after it.
+- **A loop keeps looking at the wrong thing.** That is what the interview below fixes with an assignment of my own. If where I am going has changed, the lasting fix is a spec that says so (`/grill-to-spec`, or `/write-spec` when the decisions are already made): an assignment fixes one run, a spec every run after it.
 - **It is right.** Say so in one line and move on.
 
 ## 3. Tell me what stands out

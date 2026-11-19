@@ -9,7 +9,9 @@ Start here:
 - `/sweep` — work the whole pending-proposal inbox in one pass.
 - `/blitz` — turn planned specs into parallel coding sessions.
 - `/triage` — reconcile the spec board with what actually merged.
-- `/spec` — write a spec the board can actually close.
+- `/grill-to-spec` — get grilled about an idea until it is a spec ready to build.
+- `/write-spec` — write a spec the board can actually close, when the decisions are made.
+- `/retro` — after a round lands, say what it was worth and re-aim the loops.
 - `/ideate-loops`, `/grill-to-steer`, `/steer-loops` — choose, aim and run the loops.
 
 Without the skills installed, the same commands are MCP prompts:

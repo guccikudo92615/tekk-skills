@@ -1,5 +1,5 @@
 ---
-name: feedback
+name: retro
 description: 'Close the loop after a blitz: look at what my loops found, what was built from it, what merged and what it cost, then ask me what was worth it and what was not, and turn my answers into where the loops look next. Use after a blitz has landed, when I ask how the last round went, what was worth it, which loops are earning their keep, or say a loop is too noisy, too quiet or looking in the wrong place.'
 allowed-tools:
   - mcp__tekk__get_workspace_overview
@@ -26,11 +26,11 @@ allowed-tools:
   - mcp__plugin_tekk_tekk__list_steered
 ---
 
-Feedback — the last step of the cycle. My loops found things, I swept them, a blitz built them. Now find out what that was worth, ask me what I think, and turn my answers into where the loops look next. Without this step the loops only ever hear my verdict from BEFORE anything was built, when I was guessing.
+Retro — the last step of the cycle. My loops found things, I swept them, a blitz built them. Now find out what that was worth, ask me what I think, and turn my answers into where the loops look next. Without this step the loops only ever hear my verdict from BEFORE anything was built, when I was guessing.
 
-**The cycle:** `/sweep` decides what the loops found → `/blitz` builds it → `/feedback` judges what came back and re-aims the loops → the loops run → `/sweep` again. Each step offers the next one; none starts it without my yes.
+**The cycle:** `/sweep` decides what the loops found → `/blitz` builds it → `/retro` judges what came back and re-aims the loops → the loops run → `/sweep` again. Each step offers the next one; none starts it without my yes.
 
-**What feedback is NOT:** a stored note the loops re-read forever. Tekk aims every run fresh from the evidence: what changed, what was accepted, rejected or marked marginal, which areas went unread. A sentence frozen today would be wrong in a month and nothing would correct it. So my verdict reaches the loops only through the things they already read: a steered assignment for a loop's next run, a change to a loop's cadence or autonomy, and how I decide the next findings. Never offer to "save" feedback anywhere else.
+**What a retro is NOT:** a stored note the loops re-read forever. Tekk aims every run fresh from the evidence: what changed, what was accepted, rejected or marked marginal, which areas went unread. A sentence frozen today would be wrong in a month and nothing would correct it. So my verdict reaches the loops only through the things they already read: a steered assignment for a loop's next run, a change to a loop's cadence or autonomy, and how I decide the next findings. Never offer to "save" feedback anywhere else.
 
 ## 1. Read the cycle — find the facts yourself
 
@@ -84,7 +84,7 @@ Reason the shape yourself; never ask me for engine vocabulary.
 - **Not running at all and should** → switching it on, with what that will cost.
 - **The verdict on a finding** → what a decision records happens at decision time. A finding already accepted keeps the worth it was given; there is no tool to change it afterwards, so do not pretend to. Say what this cycle taught for the NEXT sweep instead: which loop's findings deserve a closer look, which reject category fits what came back wrong.
 
-Most loops end a feedback round with no change. That is the normal outcome, not a gap to fill.
+Most loops end a retro round with no change. That is the normal outcome, not a gap to fill.
 
 ## 5. Show it, wait, write
 
@@ -96,7 +96,7 @@ Report anything that was refused, and say in one line when each assignment will 
 
 ## Next — offer the next stage
 
-End with the next stage of the cycle, as a question: if new proposals have arrived since the sweep, "Sweep them now?" (`/sweep`); if accepted specs are still waiting to be built, "Blitz them?" (`/blitz`). If nothing is waiting, say the loops will run on their own schedule and that `/feedback` is the step after the next blitz. Start nothing without my yes.
+End with the next stage of the cycle, as a question: if new proposals have arrived since the sweep, "Sweep them now?" (`/sweep`); if accepted specs are still waiting to be built, "Blitz them?" (`/blitz`). If nothing is waiting, say the loops will run on their own schedule and that `/retro` is the step after the next blitz. Start nothing without my yes.
 
 ---
 
